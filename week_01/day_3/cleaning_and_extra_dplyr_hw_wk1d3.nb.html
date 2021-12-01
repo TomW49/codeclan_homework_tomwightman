@@ -216,8 +216,162 @@ pre code {
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KENvZGVDbGFuRGF0YSlcbmBgYCJ9 -->
+<pre class="r"><code>library(tidyverse)
+library(CodeClanData)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzIDwtIHJlYWRfY3N2KFwiZGF0YS9tb3ZpZXMuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>movies &lt;- read_csv(&quot;data/movies.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 1.</p>
+<p>After you’ve read in the data and assigned it to a variable with a useful name, investigate it. Write down some ideas for what you could do to further investigate/clean this data using what you’ve learned today (no need to code it though, just jot down thoughts and ideas). Feel free to also write down any general thoughts you get looking at the data - this task is just to get you thinking about data and data cleaning/prepping.</p>
+<p>#Could give measurement units for run times, revenues, budget. #Title columns do have differences, but need to chose exact title of film as to cut down on columns #Language could be in full rather than abbreviated #Can use data to see best/worst profit, most popolar film of a time era etc</p>
+<p>Question 2.</p>
+<p>A lot of interesting stuff in there! But for now, we are only interested in the movies’ titles, their runtime as well as their budget. Select the three columns that contain this information and save them into a new variable called movies_selected. Hint: you will have to make a choice between original_title and title.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3NlbGVjdGVkIDwtIG1vdmllcyAlPiUgXG4gIHNlbGVjdCh0aXRsZSwgcnVudGltZSwgYnVkZ2V0KVxubW92aWVzX3NlbGVjdGVkIFxuYGBgIn0= -->
+<pre class="r"><code>movies_selected &lt;- movies %&gt;% 
+  select(title, runtime, budget)
+movies_selected </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 3.</p>
+<p>Ok, now take your subsetted data movies_selected, and count the number of missing values in each column.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3NlbGVjdGVkICU+JSBcbiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHRpdGxlKSkpXG5gYGAifQ== -->
+<pre class="r"><code>movies_selected %&gt;% 
+  summarise(count = sum(is.na(title)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFReXc2Q01CQmNDdFZBb2lIeE8rQ2dGNzBiUDhCb3dyV1dxa1JzQ1pUbzBTOEh0NlQ0YUEvdDdtUm1kcWY3YmJhS3NnZ0FmQWc4QWo3RkV1anhzRXZXQUFIQnhvTUFRdk0ra2JRWUFJQ1pmY0VoVWNudW9zRWkvZ1c1YXFWMm1HR3RIdW5JTm5ia2hWZVB4N1hrSld0Y3l5aG5tcVhuR3ZYWWRZNWtxaXBkS0lraVloYW1qdGlySFNCdXBka2tUL2kxbGJka3VURVR2Z2svYWIzLzJzd2t2ZldpMW1zaTVLV1FZbHkrWkNkUjJtYU9rWWZFYVZVWCtDRTJDcUpOcXBWbUl5L2lxaHlSSVJ4MGIxSXpFSk9vQVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"0"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tb3ZpZXNfc2VsZWN0ZWQgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEocnVudGltZSkpKVxuYGBgIn0= -->
+<pre class="r"><code>
+movies_selected %&gt;% 
+  summarise(count = sum(is.na(runtime)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRUVE2Q01CRGNGcXFCUkVQaU8raEJMM28zUHNCb3dyVWlLaEZiVWtyMDZNdkJMU2tKdG9kMmR6SXp1OVBqUHR2RVdRd0FBWVNFUXNDd0JIWStIZEl0UUVpeElSQkNaTjhQa2xZREFMQndML1ZJVElwWDBXQ1JUTUZjdGRKNHpFaXJOeC9aMW81KzhlcngrSlo1SlJyZk1yNEtJL2hOb3g2N3pwUE1WVzFLSlZGRTdjTE1FeFB0QVVrcjdTYlhOSCswOHBtdWQzYUNTd2lUdE9TL3RqTnA3N3lZODVvVjhsN0tZbHkrRXBlaWNzMFNJdytKZWExTC9CQVhCZEdHRzJYRXlJdHpWWTNJRUE2Nkg3T0NWbitvQVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tb3ZpZXNfc2VsZWN0ZWQgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEoYnVkZ2V0KSkpXG5gYGAifQ== -->
+<pre class="r"><code>
+movies_selected %&gt;% 
+  summarise(count = sum(is.na(budget)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFReXc2Q01CQmNDdFZBb2lIeE8rQ2dGNzBiUDhCb3dyV1dxa1JzQ1pUbzBTOEh0NlQ0YUEvdDdtUm1kcWY3YmJhS3NnZ0FmQWc4QWo3RkV1anhzRXZXQUFIQnhvTUFRdk0ra2JRWUFJQ1pmY0VoVWNudW9zRWkvZ1c1YXFWMm1HR3RIdW5JTm5ia2hWZVB4N1hrSld0Y3l5aG5tcVhuR3ZYWWRZNWtxaXBkS0lraVloYW1qdGlySFNCdXBka2tUL2kxbGJka3VURVR2Z2svYWIzLzJzd2t2ZldpMW1zaTVLV1FZbHkrWkNkUjJtYU9rWWZFYVZVWCtDRTJDcUpOcXBWbUl5L2lxaHlSSVJ4MGIxSXpFSk9vQVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"0"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbk5BXG5OQVxuYGBgIn0= -->
+<pre class="r"><code>NA
+NA
+NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 4.</p>
+<p>There’s not too many NAs, but there are actually quite a few movies with a runtime of 0 in this dataset. Since it’s impossible for a movie to have a runtime of 0, use the function na_if to convert runtimes of length 0 into NAs. Save this into a new variable called movies_runtime. Then count how many missing values there are now in the column runtime.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3J1bnRpbWUgPC0gbW92aWVzX3NlbGVjdGVkICU+JVxuICBtdXRhdGUocnVudGltZSA9IG5hX2lmKHJ1bnRpbWUsIFwiMFwiKSlcbiAgXG5tb3ZpZXNfcnVudGltZSAlPiVcbiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHJ1bnRpbWUpKSlcbmBgYCJ9 -->
+<pre class="r"><code>movies_runtime &lt;- movies_selected %&gt;%
+  mutate(runtime = na_if(runtime, &quot;0&quot;))
+  
+movies_runtime %&gt;%
+  summarise(count = sum(is.na(runtime)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRUVE2Q01CRGNGcXFoaVliRU4zaUVpNXI0QU9NRGpDWmNLNkFTc1NWUW9rZGZEbTVKU2JBOXRMdVRtZG1kbmc3SmhpY2NBRHp3Q1FXUFlRbnNjajVHZXdDZllrUEFoOEM4SHlTdEJnQmdZZCsxUTJKU3ZQSUdpM0FLcHFxVjJtRUd0WHJISTl2WTBTOWVQUjdYTWkxRjQxcnlUR2dSMzJyVVk5YzVrcm1xZEtFa2lxaFptRGxpVWp0QTJFcXpTUmFsajFZK285M1dUTEFKWVpLVy9OZG1KdTJ0RjdOZXMxemVDNW1QeTVmaW1wZTJXV0xrSVhGYzFRVitpSTJDYUJOcnBjWEk0NmtxUjJRSUI5MFA4VVZLeTZnQkFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"37"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 5.</p>
+<p>Impute the missing values in runtime with the median runtime using coalesce and save this into a new variable called movies_imputed. There should now be no missing values in the column runtime - check this to make sure.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3J1bnRpbWUgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBtZWRpYW4ocnVudGltZSwgbmEucm0gPSBUUlVFKSlcbmBgYCJ9 -->
+<pre class="r"><code>movies_runtime %&gt;% 
+  summarise(count = median(runtime, na.rm = TRUE))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRelFxQ1FCQWVWN2RRU0lTZXc3MUUxTEZEOUFCUklOMDJ0WkpzVjNTbGpqMjVOaXNyMkE3TXpzekhOei9mSHZmSktrZ0NBSERCY3dpNEZGT2c1OU1oM2dKNEJBc0hQUEIxL0NCcE9RQUFvWTY3Q3hqN0kxTEJYM21EU1RRRlU5a0taVEg5V3I3WnlGNmdreTgrUFpvOU1pMTVZNDhNTXE0NHU5WFlqMVZudGN4bHBRb3BzSW5vbzZuVjdOUVdFTFZDWDVMRjZhTVZ6M2k5MFJ1TVdqRG5PY1ludWQ1SmVqT0xtbG16WE53TGtZL0hsL3lhbDZZSVVmS2dtRlYxZ1I5aXBDRGFNQ1VWSDNsQktzc1JHY1JCOXdOSGNxMk9yQUVBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["count"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"104"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX2ltcHV0ZWQgPC0gbW92aWVzX3J1bnRpbWUgJT4lIFxuICBtdXRhdGUocnVudGltZSA9IGNvYWxlc2NlKHJ1bnRpbWUsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpKVxuXG5tb3ZpZXNfcnVudGltZSAlPiVcbiAgZmlsdGVyKGlzLm5hKHJ1bnRpbWUpKVxuYGBgIn0= -->
+<pre class="r"><code>movies_imputed &lt;- movies_runtime %&gt;% 
+  mutate(runtime = coalesce(runtime,
+                            median(runtime, na.rm = TRUE)))
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCg==</div>
+movies_runtime %&gt;%
+  filter(is.na(runtime))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MzcsIm5jb2wiOjMsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMzcgw5cgMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUErMVZTNDhiUlJDZWZaaGxUWFlUMlBCR3FEaUVTQWhiaVZCUXhBWHNuUmdIZHBlVjdXUWpUdFRPbEdjNjd1bXllbnJzTlJkeTRHZHc0bTl4NUEvd0M3SlVlNmNOV0FGeDVFQkw4NnIzOTFWTjl5Qis4a256U1RPS29xMW9lMk16Mm1ySWE5UjROT3ExN2tmUjlxWjhiRVRiMGE1L1hvalJ3ZEl5aW03SWRhdFdYQi9sQkNObWwwTVBsVjNVNG84T2M0VUZPaW9VOUN5YWhNcUVvUVVQTlp6aUZDRWxyUkV5TW81cWp6ZTdtam1GbUEzQlVHVUdqaGR3Z2tWUTN4em1YT24wOW95Z1MyUmd3QVZ4clR2bzh4d2NTd0ZhZ3pKd3hMUGcxdXl4ZFhDY0hIS29iSGVJTmtXMFQ5VktrS09kbEJObGFzRWIvYW9RU0hETU9aNmZvNE92MFZLR3RmWmQwWFJwQ1dyeXNWUnEwRmtFc2JwNzUwNXQ4dkpKYTBoSlpVTVJCN0hTOEpXNDVVcGk1YlJvdDlzaHVhZHZpSnBEOG1hWHRLRDVsbXhBZDcycmlWSmxNdWdUV2xmVzR0ZUdkQUZuU25nZlNnRW1JeHMwci91WWo5R3BCQTA4dUdDYnFMSUl5bGNGRENaU1NFbHdoRG12aW56YmUvWFpXclp3UW03T2RnS1BXYmZoN29wbHRGYVZMSjFoNHpMaGY5WHR2VFBwdElVUDRaVG5aRU5EajFTV094aGJMc0JKN0ZoWXRzeEZyWDZuSXdHa1JIaFlDZ0lsbmZOR3B4cVRVTkg3SGExSlZ3by9BRjliVERPbGI1ZHdpTmFvR2VyYTZpMFBmNW5wbThvQmo2RXJTU1o2RVFpOUZzc2dza2xoVUkzSHRXei91SElWYW1taUlwTUdhdTRObEpBaUVYd2hENHl6TkxWa3FMS2ZMZk1QaGYwa2g3SHdneklCemlNK3cwREJ6Uy9aTG1CNTYrT3k3cWVZMTdyMy9FRDZ3ZlNCUjZwWUpoRVNTL2RIMDY3NUZGMlZ3WENPMHhDejUzSDV6bys0S0JZd1VKcEN2bGRpUXVuOW9lUUtJWFlmbVZqTlZFcHBtQ1VmczJmNWV3cGs3QjhwNS9SVm9oR3Y4c1JWU25DV2t5WGhWLzY3bUxQUHZiWC96My80elc4S096Ly8vL3puWitBcnFsZEgvM1EvZXNIcW5QejQ3RVh5OWZYRjM4ZzduLzc2M2IveC8rK3Z2eHd3RFNON2ZSbGRIUzViUWVpVVRHdjlzV01yNDlUcVFIanB2RW96Y210aGRpM1AyeUhVbmx5YnorUjJlWG41eTNxK1JHTVo4Z1ZoTTBXSDdiSDF4MDRVUFY5ejJlR3BVL0xYU2xCL0VqYlduRGZzbXVCR1pYd2xhU3ZKS3pOcDNmUGowRnpxcjlaZS9YN3JUKzliVnprM0wrdFlqWUNXVEtaTXdON1FlRTVoQTl3WHlFdkU3YWxWeGdVb0lpM2JqdDFxbzJ3bXJJTmtDUzU2L2pzYkVndU1BUWdBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["runtime"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["budget"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"The Tooth Fairy","2":"NA","3":"0.0e+00"},{"1":"Chiamatemi Francesco - Il Papa della gente","2":"NA","3":"1.5e+07"},{"1":"Blood Done Sign My Name","2":"NA","3":"0.0e+00"},{"1":"Should've Been Romeo","2":"NA","3":"0.0e+00"},{"1":"How to Fall in Love","2":"NA","3":"4.0e+06"},{"1":"Fort McCoy","2":"NA","3":"0.0e+00"},{"1":"Sardaarji","2":"NA","3":"0.0e+00"},{"1":"Sharkskin","2":"NA","3":"0.0e+00"},{"1":"Hum To Mohabbat Karega","2":"NA","3":"0.0e+00"},{"1":"To Be Frank, Sinatra at 100","2":"NA","3":"2.0e+00"},{"1":"N-Secure","2":"NA","3":"0.0e+00"},{"1":"Dil Jo Bhi Kahey...","2":"NA","3":"0.0e+00"},{"1":"The Salon","2":"NA","3":"1.5e+06"},{"1":"Below Zero","2":"NA","3":"0.0e+00"},{"1":"Bleeding Hearts","2":"NA","3":"0.0e+00"},{"1":"Sex With Strangers","2":"NA","3":"0.0e+00"},{"1":"The Vatican Exorcisms","2":"NA","3":"0.0e+00"},{"1":"Karachi se Lahore","2":"NA","3":"0.0e+00"},{"1":"The Horror Network Vol. 1","2":"NA","3":"0.0e+00"},{"1":"Harrison Montgomery","2":"NA","3":"0.0e+00"},{"1":"Water & Power","2":"NA","3":"0.0e+00"},{"1":"Light from the Darkroom","2":"NA","3":"0.0e+00"},{"1":"America Is Still the Place","2":"NA","3":"0.0e+00"},{"1":"Alleluia! The Devil's Carnival","2":"NA","3":"0.0e+00"},{"1":"Straight Out of Brooklyn","2":"NA","3":"0.0e+00"},{"1":"Diamond Ruff","2":"NA","3":"0.0e+00"},{"1":"Mutual Friends","2":"NA","3":"0.0e+00"},{"1":"Rise of the Entrepreneur: The Search for a Better Way","2":"NA","3":"0.0e+00"},{"1":"Gory Gory Hallelujah","2":"NA","3":"0.0e+00"},{"1":"Love in the Time of Monsters","2":"NA","3":"0.0e+00"},{"1":"The Big Swap","2":"NA","3":"0.0e+00"},{"1":"Fighting Tommy Riley","2":"NA","3":"0.0e+00"},{"1":"Death Calls","2":"NA","3":"0.0e+00"},{"1":"UnDivided","2":"NA","3":"0.0e+00"},{"1":"The Frozen","2":"NA","3":"0.0e+00"},{"1":"Little Big Top","2":"NA","3":"0.0e+00"},{"1":"Dude Where's My Dog?","2":"NA","3":"0.0e+00"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[37]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 6.</p>
+<p>Finally, use the slice_min and slice_max functions on movies_imputed to get the movies with the 10 shortest and 10 longest runtimes.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuP3NsaWNlXG5gYGAifQ== -->
+<pre class="r"><code>?slice</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 7.</p>
+<p>Using the if_else function, impute anything with a budget below $100 with the median budget. Overwrite your movies_imputed so it contains the new budget values.</p>
+<p>2 Extension</p>
+<p>Question 1.</p>
+<p>Using case_when, create a new column called budget_type and label budgets as follows:</p>
+<pre><code>Budgets below 12 million as ‘Small budget’
+Budgets between 12 and 40 million as ‘Medium budget’
+Budgets 40 millions and above as ‘Big budget’</code></pre>
+<p>Save this into a new variable called movie_budgets. Hint: 1e6 is a shorthand way of writing 1 million ()</p>
+<p>Question 2.</p>
+<p>Take the original dataset with all the variables. Using across and where, summarise the number of missing values, first across all columns of type character, and then across all columns of type numeric.</p>
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShDb2RlQ2xhbkRhdGEpCmBgYAoKYGBge3J9Cm1vdmllcyA8LSByZWFkX2NzdigiZGF0YS9tb3ZpZXMuY3N2IikKYGBgCgpRdWVzdGlvbiAxLgoKQWZ0ZXIgeW914oCZdmUgcmVhZCBpbiB0aGUgZGF0YSBhbmQgYXNzaWduZWQgaXQgdG8gYSB2YXJpYWJsZSB3aXRoIGEgdXNlZnVsIG5hbWUsIGludmVzdGlnYXRlIGl0LiBXcml0ZSBkb3duIHNvbWUgaWRlYXMgZm9yIHdoYXQgeW91IGNvdWxkIGRvIHRvIGZ1cnRoZXIgaW52ZXN0aWdhdGUvY2xlYW4gdGhpcyBkYXRhIHVzaW5nIHdoYXQgeW914oCZdmUgbGVhcm5lZCB0b2RheSAobm8gbmVlZCB0byBjb2RlIGl0IHRob3VnaCwganVzdCBqb3QgZG93biB0aG91Z2h0cyBhbmQgaWRlYXMpLiBGZWVsIGZyZWUgdG8gYWxzbyB3cml0ZSBkb3duIGFueSBnZW5lcmFsIHRob3VnaHRzIHlvdSBnZXQgbG9va2luZyBhdCB0aGUgZGF0YSAtIHRoaXMgdGFzayBpcyBqdXN0IHRvIGdldCB5b3UgdGhpbmtpbmcgYWJvdXQgZGF0YSBhbmQgZGF0YSBjbGVhbmluZy9wcmVwcGluZy4KCiNDb3VsZCBnaXZlIG1lYXN1cmVtZW50IHVuaXRzIGZvciBydW4gdGltZXMsIHJldmVudWVzLCBidWRnZXQuCiNUaXRsZSBjb2x1bW5zIGRvIGhhdmUgZGlmZmVyZW5jZXMsIGJ1dCBuZWVkIHRvIGNob3NlIGV4YWN0IHRpdGxlIG9mIGZpbG0gYXMgdG8gY3V0IGRvd24gb24gY29sdW1ucwojTGFuZ3VhZ2UgY291bGQgYmUgaW4gZnVsbCByYXRoZXIgdGhhbiBhYmJyZXZpYXRlZCAKI0NhbiB1c2UgZGF0YSB0byBzZWUgYmVzdC93b3JzdCBwcm9maXQsIG1vc3QgcG9wb2xhciBmaWxtIG9mIGEgdGltZSBlcmEgZXRjCgoKUXVlc3Rpb24gMi4KCkEgbG90IG9mIGludGVyZXN0aW5nIHN0dWZmIGluIHRoZXJlISBCdXQgZm9yIG5vdywgd2UgYXJlIG9ubHkgaW50ZXJlc3RlZCBpbiB0aGUgbW92aWVz4oCZIHRpdGxlcywgdGhlaXIgcnVudGltZSBhcyB3ZWxsIGFzIHRoZWlyIGJ1ZGdldC4gU2VsZWN0IHRoZSB0aHJlZSBjb2x1bW5zIHRoYXQgY29udGFpbiB0aGlzIGluZm9ybWF0aW9uIGFuZCBzYXZlIHRoZW0gaW50byBhIG5ldyB2YXJpYWJsZSBjYWxsZWQgbW92aWVzX3NlbGVjdGVkLiBIaW50OiB5b3Ugd2lsbCBoYXZlIHRvIG1ha2UgYSBjaG9pY2UgYmV0d2VlbiBvcmlnaW5hbF90aXRsZSBhbmQgdGl0bGUuCgpgYGB7cn0KbW92aWVzX3NlbGVjdGVkIDwtIG1vdmllcyAlPiUgCiAgc2VsZWN0KHRpdGxlLCBydW50aW1lLCBidWRnZXQpCm1vdmllc19zZWxlY3RlZCAKYGBgCgoKUXVlc3Rpb24gMy4KCk9rLCBub3cgdGFrZSB5b3VyIHN1YnNldHRlZCBkYXRhIG1vdmllc19zZWxlY3RlZCwgYW5kIGNvdW50IHRoZSBudW1iZXIgb2YgbWlzc2luZyB2YWx1ZXMgaW4gZWFjaCBjb2x1bW4uCgpgYGB7cn0KbW92aWVzX3NlbGVjdGVkICU+JSAKICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEodGl0bGUpKSkKCm1vdmllc19zZWxlY3RlZCAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHJ1bnRpbWUpKSkKCm1vdmllc19zZWxlY3RlZCAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKGJ1ZGdldCkpKQoKCgpgYGAKCgoKClF1ZXN0aW9uIDQuCgpUaGVyZeKAmXMgbm90IHRvbyBtYW55IE5BcywgYnV0IHRoZXJlIGFyZSBhY3R1YWxseSBxdWl0ZSBhIGZldyBtb3ZpZXMgd2l0aCBhIHJ1bnRpbWUgb2YgMCBpbiB0aGlzIGRhdGFzZXQuIFNpbmNlIGl04oCZcyBpbXBvc3NpYmxlIGZvciBhIG1vdmllIHRvIGhhdmUgYSBydW50aW1lIG9mIDAsIHVzZSB0aGUgZnVuY3Rpb24gbmFfaWYgdG8gY29udmVydCBydW50aW1lcyBvZiBsZW5ndGggMCBpbnRvIE5Bcy4gU2F2ZSB0aGlzIGludG8gYSBuZXcgdmFyaWFibGUgY2FsbGVkIG1vdmllc19ydW50aW1lLiBUaGVuIGNvdW50IGhvdyBtYW55IG1pc3NpbmcgdmFsdWVzIHRoZXJlIGFyZSBub3cgaW4gdGhlIGNvbHVtbiBydW50aW1lLgoKYGBge3J9Cm1vdmllc19ydW50aW1lIDwtIG1vdmllc19zZWxlY3RlZCAlPiUKICBtdXRhdGUocnVudGltZSA9IG5hX2lmKHJ1bnRpbWUsICIwIikpCiAgCm1vdmllc19ydW50aW1lICU+JQogIHN1bW1hcmlzZShjb3VudCA9IHN1bShpcy5uYShydW50aW1lKSkpCiAgCmBgYAoKClF1ZXN0aW9uIDUuCgpJbXB1dGUgdGhlIG1pc3NpbmcgdmFsdWVzIGluIHJ1bnRpbWUgd2l0aCB0aGUgbWVkaWFuIHJ1bnRpbWUgdXNpbmcgY29hbGVzY2UgYW5kIHNhdmUgdGhpcyBpbnRvIGEgbmV3IHZhcmlhYmxlIGNhbGxlZCBtb3ZpZXNfaW1wdXRlZC4gVGhlcmUgc2hvdWxkIG5vdyBiZSBubyBtaXNzaW5nIHZhbHVlcyBpbiB0aGUgY29sdW1uIHJ1bnRpbWUgLSBjaGVjayB0aGlzIHRvIG1ha2Ugc3VyZS4KCmBgYHtyfQptb3ZpZXNfcnVudGltZSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpCmBgYAoKCmBgYHtyfQptb3ZpZXNfaW1wdXRlZCA8LSBtb3ZpZXNfcnVudGltZSAlPiUgCiAgbXV0YXRlKHJ1bnRpbWUgPSBjb2FsZXNjZShydW50aW1lLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpKSAjd2h5IGlzIHRoaXMgbm90IHdvcmtpbmc/Cgptb3ZpZXNfcnVudGltZSAlPiUKICBmaWx0ZXIoaXMubmEocnVudGltZSkpCmBgYAoKUXVlc3Rpb24gNi4KCkZpbmFsbHksIHVzZSB0aGUgc2xpY2VfbWluIGFuZCBzbGljZV9tYXggZnVuY3Rpb25zIG9uIG1vdmllc19pbXB1dGVkIHRvIGdldCB0aGUgbW92aWVzIHdpdGggdGhlIDEwIHNob3J0ZXN0IGFuZCAxMCBsb25nZXN0IHJ1bnRpbWVzLgoKCmBgYHtyfQo/c2xpY2UKYGBgCgpRdWVzdGlvbiA3LgoKVXNpbmcgdGhlIGlmX2Vsc2UgZnVuY3Rpb24sIGltcHV0ZSBhbnl0aGluZyB3aXRoIGEgYnVkZ2V0IGJlbG93ICQxMDAgd2l0aCB0aGUgbWVkaWFuIGJ1ZGdldC4gT3ZlcndyaXRlIHlvdXIgbW92aWVzX2ltcHV0ZWQgc28gaXQgY29udGFpbnMgdGhlIG5ldyBidWRnZXQgdmFsdWVzLgoKMiBFeHRlbnNpb24KCgpRdWVzdGlvbiAxLgoKVXNpbmcgY2FzZV93aGVuLCBjcmVhdGUgYSBuZXcgY29sdW1uIGNhbGxlZCBidWRnZXRfdHlwZSBhbmQgbGFiZWwgYnVkZ2V0cyBhcyBmb2xsb3dzOgoKICAgIEJ1ZGdldHMgYmVsb3cgMTIgbWlsbGlvbiBhcyDigJhTbWFsbCBidWRnZXTigJkKICAgIEJ1ZGdldHMgYmV0d2VlbiAxMiBhbmQgNDAgbWlsbGlvbiBhcyDigJhNZWRpdW0gYnVkZ2V04oCZCiAgICBCdWRnZXRzIDQwIG1pbGxpb25zIGFuZCBhYm92ZSBhcyDigJhCaWcgYnVkZ2V04oCZCgpTYXZlIHRoaXMgaW50byBhIG5ldyB2YXJpYWJsZSBjYWxsZWQgbW92aWVfYnVkZ2V0cy4KSGludDoKMWU2IGlzIGEgc2hvcnRoYW5kIHdheSBvZiB3cml0aW5nIDEgbWlsbGlvbiAoKQoKCgpRdWVzdGlvbiAyLgoKVGFrZSB0aGUgb3JpZ2luYWwgZGF0YXNldCB3aXRoIGFsbCB0aGUgdmFyaWFibGVzLiBVc2luZyBhY3Jvc3MgYW5kIHdoZXJlLCBzdW1tYXJpc2UgdGhlIG51bWJlciBvZiBtaXNzaW5nIHZhbHVlcywgZmlyc3QgYWNyb3NzIGFsbCBjb2x1bW5zIG9mIHR5cGUgY2hhcmFjdGVyLCBhbmQgdGhlbiBhY3Jvc3MgYWxsIGNvbHVtbnMgb2YgdHlwZSBudW1lcmljLg==</div>
 
 
 
