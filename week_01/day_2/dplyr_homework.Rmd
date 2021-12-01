@@ -71,9 +71,10 @@ Summarise the mean number of calories in each beverage_category. Which 3 categor
 ```{r}
   beverages_grouped <- group_by(drinks_content, Beverage_category)
 summarise(beverages_grouped, Calories = mean(Calories)) %>% 
-  arrange(Calories)
+  arrange(Calories) %>% 
+  head(3)
 # this took me a while to figure this one out, there has to be better code?
-# wanted to use top_n(-3) %>% top_n(3) to only show top and bottom 3 howvever could not achieve?
+# wanted to use top_n(-3) %>% top_n(3) to only show top and bottom 3 however could not achieve?
 ```
 
 Summary:
@@ -135,6 +136,11 @@ Which is the best type of coffee drink to get if you’re worried about consumin
 
 ```{r}
 view(drinks_content)
+```
+
+```{r}
+drinks_content %>% 
+  filter(Beverage_category !=)
 ```
 
 The best Coffee drink when concerned about high calorie intake will be a short Brewed Coffee, which only contains 3 calories.
