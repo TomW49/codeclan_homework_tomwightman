@@ -89,20 +89,30 @@ Finally, use the slice_min and slice_max functions on movies_imputed to get the 
 
 
 ```{r}
-movies_imputed %>%
-  head(runtime, n = 10)
+movies_imputed %>% 
+  slice_min(runtime, n = 10)
 
-movies_imputed %>%
-  tail(runtime, n = -10)
-```
-```{r}
-movies_imputed 
+movies_imputed %>% 
+  slice_max(runtime, n = 10)
+
 ```
 
 
 Question 7.
 
 Using the if_else function, impute anything with a budget below $100 with the median budget. Overwrite your movies_imputed so it contains the new budget values.
+
+```{r}
+movie_budgets_imputed <- movies_imputed %>% 
+  mutate(budget = coalesce(budget,
+                            median(runtime, na.rm = TRUE)))
+
+movie_budgets_imputed %>%
+  filter(is.na(budget))
+  
+#this was a copy and paste of other code, tweaked it but not enough 
+```
+
 
 2 Extension
 
@@ -119,6 +129,9 @@ Save this into a new variable called movie_budgets.
 Hint:
 1e6 is a shorthand way of writing 1 million ()
 
+```{r}
+
+```
 
 
 Question 2.
