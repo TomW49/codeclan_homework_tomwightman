@@ -248,45 +248,16 @@ movies_selected </code></pre>
 <p>Ok, now take your subsetted data movies_selected, and count the number of missing values in each column.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3NlbGVjdGVkICU+JSBcbiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHRpdGxlKSkpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3NlbGVjdGVkICU+JSBcbiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHRpdGxlKSkpXG5cbm1vdmllc19zZWxlY3RlZCAlPiUgXG4gIHN1bW1hcmlzZShjb3VudCA9IHN1bShpcy5uYShydW50aW1lKSkpXG5cbm1vdmllc19zZWxlY3RlZCAlPiUgXG4gIHN1bW1hcmlzZShjb3VudCA9IHN1bShpcy5uYShidWRnZXQpKSlcblxuXG5cbmBgYCJ9 -->
 <pre class="r"><code>movies_selected %&gt;% 
-  summarise(count = sum(is.na(title)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFReXc2Q01CQmNDdFZBb2lIeE8rQ2dGNzBiUDhCb3dyV1dxa1JzQ1pUbzBTOEh0NlQ0YUEvdDdtUm1kcWY3YmJhS3NnZ0FmQWc4QWo3RkV1anhzRXZXQUFIQnhvTUFRdk0ra2JRWUFJQ1pmY0VoVWNudW9zRWkvZ1c1YXFWMm1HR3RIdW5JTm5ia2hWZVB4N1hrSld0Y3l5aG5tcVhuR3ZYWWRZNWtxaXBkS0lraVloYW1qdGlySFNCdXBka2tUL2kxbGJka3VURVR2Z2svYWIzLzJzd2t2ZldpMW1zaTVLV1FZbHkrWkNkUjJtYU9rWWZFYVZVWCtDRTJDcUpOcXBWbUl5L2lxaHlSSVJ4MGIxSXpFSk9vQVFBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"0"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tb3ZpZXNfc2VsZWN0ZWQgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEocnVudGltZSkpKVxuYGBgIn0= -->
-<pre class="r"><code>
+  summarise(count = sum(is.na(title)))
+
 movies_selected %&gt;% 
-  summarise(count = sum(is.na(runtime)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRUVE2Q01CRGNGcXFCUkVQaU8raEJMM28zUHNCb3dyVWlLaEZiVWtyMDZNdkJMU2tKdG9kMmR6SXp1OVBqUHR2RVdRd0FBWVNFUXNDd0JIWStIZEl0UUVpeElSQkNaTjhQa2xZREFMQndML1ZJVElwWDBXQ1JUTUZjdGRKNHpFaXJOeC9aMW81KzhlcngrSlo1SlJyZk1yNEtJL2hOb3g2N3pwUE1WVzFLSlZGRTdjTE1FeFB0QVVrcjdTYlhOSCswOHBtdWQzYUNTd2lUdE9TL3RqTnA3N3lZODVvVjhsN0tZbHkrRXBlaWNzMFNJdytKZWExTC9CQVhCZEdHRzJYRXlJdHpWWTNJRUE2Nkg3T0NWbitvQVFBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tb3ZpZXNfc2VsZWN0ZWQgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEoYnVkZ2V0KSkpXG5gYGAifQ== -->
-<pre class="r"><code>
+  summarise(count = sum(is.na(runtime)))
+
 movies_selected %&gt;% 
-  summarise(count = sum(is.na(budget)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFReXc2Q01CQmNDdFZBb2lIeE8rQ2dGNzBiUDhCb3dyV1dxa1JzQ1pUbzBTOEh0NlQ0YUEvdDdtUm1kcWY3YmJhS3NnZ0FmQWc4QWo3RkV1anhzRXZXQUFIQnhvTUFRdk0ra2JRWUFJQ1pmY0VoVWNudW9zRWkvZ1c1YXFWMm1HR3RIdW5JTm5ia2hWZVB4N1hrSld0Y3l5aG5tcVhuR3ZYWWRZNWtxaXBkS0lraVloYW1qdGlySFNCdXBka2tUL2kxbGJka3VURVR2Z2svYWIzLzJzd2t2ZldpMW1zaTVLV1FZbHkrWkNkUjJtYU9rWWZFYVZVWCtDRTJDcUpOcXBWbUl5L2lxaHlSSVJ4MGIxSXpFSk9vQVFBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"0"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbk5BXG5OQVxuYGBgIn0= -->
-<pre class="r"><code>NA
-NA
-NA</code></pre>
+  summarise(count = sum(is.na(budget)))
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -317,33 +288,18 @@ movies_runtime %&gt;%
 <p>Impute the missing values in runtime with the median runtime using coalesce and save this into a new variable called movies_imputed. There should now be no missing values in the column runtime - check this to make sure.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX3J1bnRpbWUgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBtZWRpYW4ocnVudGltZSwgbmEucm0gPSBUUlVFKSlcbmBgYCJ9 -->
-<pre class="r"><code>movies_runtime %&gt;% 
-  summarise(count = median(runtime, na.rm = TRUE))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDEiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRelFxQ1FCQWVWN2RRU0lTZXc3MUUxTEZEOUFCUklOMDJ0WkpzVjNTbGpqMjVOaXNyMkE3TXpzekhOei9mSHZmSktrZ0NBSERCY3dpNEZGT2c1OU1oM2dKNEJBc0hQUEIxL0NCcE9RQUFvWTY3Q3hqN0kxTEJYM21EU1RRRlU5a0taVEg5V3I3WnlGNmdreTgrUFpvOU1pMTVZNDhNTXE0NHU5WFlqMVZudGN4bHBRb3BzSW5vbzZuVjdOUVdFTFZDWDVMRjZhTVZ6M2k5MFJ1TVdqRG5PY1ludWQ1SmVqT0xtbG16WE53TGtZL0hsL3lhbDZZSVVmS2dtRlYxZ1I5aXBDRGFNQ1VWSDNsQktzc1JHY1JCOXdOSGNxMk9yQUVBQUE9PSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["count"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"104"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX2ltcHV0ZWQgPC0gbW92aWVzX3J1bnRpbWUgJT4lIFxuICBtdXRhdGUocnVudGltZSA9IGNvYWxlc2NlKHJ1bnRpbWUsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpKVxuXG5tb3ZpZXNfcnVudGltZSAlPiVcbiAgZmlsdGVyKGlzLm5hKHJ1bnRpbWUpKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX2ltcHV0ZWQgPC0gbW92aWVzX3J1bnRpbWUgJT4lIFxuICBtdXRhdGUocnVudGltZSA9IGNvYWxlc2NlKHJ1bnRpbWUsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpKVxuXG5tb3ZpZXNfaW1wdXRlZCAlPiVcbiAgZmlsdGVyKGlzLm5hKHJ1bnRpbWUpKVxuYGBgIn0= -->
 <pre class="r"><code>movies_imputed &lt;- movies_runtime %&gt;% 
   mutate(runtime = coalesce(runtime,
                             median(runtime, na.rm = TRUE)))
 
-movies_runtime %&gt;%
+movies_imputed %&gt;%
   filter(is.na(runtime))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MzcsIm5jb2wiOjMsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMzcgw5cgMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUErMVZTNDhiUlJDZWZaaGxUWFlUMlBCR3FEaUVTQWhiaVZCUXhBWHNuUmdIZHBlVjdXUWpUdFRPbEdjNjd1bXllbnJzTlJkeTRHZHc0bTl4NUEvd0M3SlVlNmNOV0FGeDVFQkw4NnIzOTFWTjl5Qis4a256U1RPS29xMW9lMk16Mm1ySWE5UjROT3ExN2tmUjlxWjhiRVRiMGE1L1hvalJ3ZEl5aW03SWRhdFdYQi9sQkNObWwwTVBsVjNVNG84T2M0VUZPaW9VOUN5YWhNcUVvUVVQTlp6aUZDRWxyUkV5TW81cWp6ZTdtam1GbUEzQlVHVUdqaGR3Z2tWUTN4em1YT24wOW95Z1MyUmd3QVZ4clR2bzh4d2NTd0ZhZ3pKd3hMUGcxdXl4ZFhDY0hIS29iSGVJTmtXMFQ5VktrS09kbEJObGFzRWIvYW9RU0hETU9aNmZvNE92MFZLR3RmWmQwWFJwQ1dyeXNWUnEwRmtFc2JwNzUwNXQ4dkpKYTBoSlpVTVJCN0hTOEpXNDVVcGk1YlJvdDlzaHVhZHZpSnBEOG1hWHRLRDVsbXhBZDcycmlWSmxNdWdUV2xmVzR0ZUdkQUZuU25nZlNnRW1JeHMwci91WWo5R3BCQTA4dUdDYnFMSUl5bGNGRENaU1NFbHdoRG12aW56YmUvWFpXclp3UW03T2RnS1BXYmZoN29wbHRGYVZMSjFoNHpMaGY5WHR2VFBwdElVUDRaVG5aRU5EajFTV094aGJMc0JKN0ZoWXRzeEZyWDZuSXdHa1JIaFlDZ0lsbmZOR3B4cVRVTkg3SGExSlZ3by9BRjliVERPbGI1ZHdpTmFvR2VyYTZpMFBmNW5wbThvQmo2RXJTU1o2RVFpOUZzc2dza2xoVUkzSHRXei91SElWYW1taUlwTUdhdTRObEpBaUVYd2hENHl6TkxWa3FMS2ZMZk1QaGYwa2g3SHdneklCemlNK3cwREJ6Uy9aTG1CNTYrT3k3cWVZMTdyMy9FRDZ3ZlNCUjZwWUpoRVNTL2RIMDY3NUZGMlZ3WENPMHhDejUzSDV6bys0S0JZd1VKcEN2bGRpUXVuOW9lUUtJWFlmbVZqTlZFcHBtQ1VmczJmNWV3cGs3QjhwNS9SVm9oR3Y4c1JWU25DV2t5WGhWLzY3bUxQUHZiWC96My80elc4S096Ly8vL3puWitBcnFsZEgvM1EvZXNIcW5QejQ3RVh5OWZYRjM4ZzduLzc2M2IveC8rK3Z2eHd3RFNON2ZSbGRIUzViUWVpVVRHdjlzV01yNDlUcVFIanB2RW96Y210aGRpM1AyeUhVbmx5YnorUjJlWG41eTNxK1JHTVo4Z1ZoTTBXSDdiSDF4MDRVUFY5ejJlR3BVL0xYU2xCL0VqYlduRGZzbXVCR1pYd2xhU3ZKS3pOcDNmUGowRnpxcjlaZS9YN3JUKzliVnprM0wrdFlqWUNXVEtaTXdON1FlRTVoQTl3WHlFdkU3YWxWeGdVb0lpM2JqdDFxbzJ3bXJJTmtDUzU2L2pzYkVndU1BUWdBQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MCwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIwIMOXIDMiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMjFQeXdyQ01CRGNQcUpZc0JUOGpoYlVpeDhnZm9BbzlCcmJXSU14a1hTTGZyMmFQdmJRNGw1Mlo3S3prem51ODIyVVJ3QVFRT2o1RURBM0FqdWZEdWtPSVBRZDhDQ0VSZHZmYm1uVmJRSWswRmM4N2lNQjAvd2g2bUU1SUJJbEtqR0F1VzAweWdmQjJhVXBLNEdUTXd0clhobWRXdjd6S1JTdnlZZklxT1RJczZ0MU9vYytFOG5jUEZFYTdVUittNGhOeEo2ZEVFbWoyeCtVYVhGcjlEM2RyRnVIN3IydjVaODU2RDM5NzNDTFVVcWhLNmtwTTFQOEl0UUFZaGUxUzVvOXJkUklVUnhiWjJpUTAxNVVHRVZNRnc0K1B5NitMVUhKQVFBQSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["runtime"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["budget"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"The Tooth Fairy","2":"NA","3":"0.0e+00"},{"1":"Chiamatemi Francesco - Il Papa della gente","2":"NA","3":"1.5e+07"},{"1":"Blood Done Sign My Name","2":"NA","3":"0.0e+00"},{"1":"Should've Been Romeo","2":"NA","3":"0.0e+00"},{"1":"How to Fall in Love","2":"NA","3":"4.0e+06"},{"1":"Fort McCoy","2":"NA","3":"0.0e+00"},{"1":"Sardaarji","2":"NA","3":"0.0e+00"},{"1":"Sharkskin","2":"NA","3":"0.0e+00"},{"1":"Hum To Mohabbat Karega","2":"NA","3":"0.0e+00"},{"1":"To Be Frank, Sinatra at 100","2":"NA","3":"2.0e+00"},{"1":"N-Secure","2":"NA","3":"0.0e+00"},{"1":"Dil Jo Bhi Kahey...","2":"NA","3":"0.0e+00"},{"1":"The Salon","2":"NA","3":"1.5e+06"},{"1":"Below Zero","2":"NA","3":"0.0e+00"},{"1":"Bleeding Hearts","2":"NA","3":"0.0e+00"},{"1":"Sex With Strangers","2":"NA","3":"0.0e+00"},{"1":"The Vatican Exorcisms","2":"NA","3":"0.0e+00"},{"1":"Karachi se Lahore","2":"NA","3":"0.0e+00"},{"1":"The Horror Network Vol. 1","2":"NA","3":"0.0e+00"},{"1":"Harrison Montgomery","2":"NA","3":"0.0e+00"},{"1":"Water & Power","2":"NA","3":"0.0e+00"},{"1":"Light from the Darkroom","2":"NA","3":"0.0e+00"},{"1":"America Is Still the Place","2":"NA","3":"0.0e+00"},{"1":"Alleluia! The Devil's Carnival","2":"NA","3":"0.0e+00"},{"1":"Straight Out of Brooklyn","2":"NA","3":"0.0e+00"},{"1":"Diamond Ruff","2":"NA","3":"0.0e+00"},{"1":"Mutual Friends","2":"NA","3":"0.0e+00"},{"1":"Rise of the Entrepreneur: The Search for a Better Way","2":"NA","3":"0.0e+00"},{"1":"Gory Gory Hallelujah","2":"NA","3":"0.0e+00"},{"1":"Love in the Time of Monsters","2":"NA","3":"0.0e+00"},{"1":"The Big Swap","2":"NA","3":"0.0e+00"},{"1":"Fighting Tommy Riley","2":"NA","3":"0.0e+00"},{"1":"Death Calls","2":"NA","3":"0.0e+00"},{"1":"UnDivided","2":"NA","3":"0.0e+00"},{"1":"The Frozen","2":"NA","3":"0.0e+00"},{"1":"Little Big Top","2":"NA","3":"0.0e+00"},{"1":"Dude Where's My Dog?","2":"NA","3":"0.0e+00"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[37]},"pages":{}}}
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["runtime"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["budget"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[0]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -353,8 +309,30 @@ movies_runtime %&gt;%
 <p>Finally, use the slice_min and slice_max functions on movies_imputed to get the movies with the 10 shortest and 10 longest runtimes.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuP3NsaWNlXG5gYGAifQ== -->
-<pre class="r"><code>?slice</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX2ltcHV0ZWQgJT4lXG4gIGhlYWQocnVudGltZSwgbiA9IDEwKVxuYGBgIn0= -->
+<pre class="r"><code>movies_imputed %&gt;%
+  head(runtime, n = 10)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTAsIm5jb2wiOjMsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTAgw5cgMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVNUVzRUTVJSMkpwbEdIV2hWQ1NHMlZoZkFackpwaFJDclRBbW9La0tLbWxTVVhUMWpaMkxWc1VjZVR3bzd0bXc1QVJJN1JGRjdCQTRBWjJndndUTGhlY2FXeWxpeW5yLzM4NzBmditQUjZWNTBHaUdFdXFqWENWQTNoQ2NLVDZhdjQrY0k5UUlBSGRSRG0xWitBS2NIdFNkQ08zQWpaOWhJbHNRUTdkRFRNZGZFc0JLckdUWnpobDhTemRPVUVma0NKd2EvVTFyUUp5VitKYW56NzA4S2xobk5ISHc0aFpnUjBlZjRqZVQ1M09CalhyTFNHZThkcWJtMGpJYjVkUGNuQmFkTXgyK0p4SHVlY2twa0xwalA4Q2haTXBrelhVSUZPYk4xblFpamxYVG14NGRFNjQ5NHJBeXdZaUpwWGZZaEViUDRRQ2hGOFZoem1mbjZkZytJV1VDdUpaNVVCZE1MMjllSVhFaExlMVNWaG9NblF0dDJQRU02dE1ORVE0WWJtWDVxSlAzYXlET0h5VmtqM3lPSG5UM3pjVGZJblpvMytUSDhiaU9UNjl0dlZwbGM3ditwOGVWdlZ1T2ZxeStOL1BYNVAzeDF0VVIzL1p4cy9YTW95UUltM3Z4eDF5c05OOExQb0s4cmFmakN3NDIwb2prekxacE5yUzRHbm1vTGJtQnJYSy9YZjl2NU1rRktuODhySXdvck5aaHBpQWUwYW9YMFZXRzRraEFVMklVTVc4RWQzVkxzVk5KV1F1TnNYc256ZVA5WnZiM1czcHd0OTQ3dXZMdE56bUR0dUVMZkxld1NsNzczVUpDVUNRZTJvZVc2NDBFQksyTjhLNkF0QjBZWjR2MmlUQW12cVp0RHEzOFBZY1lPaUFNQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["runtime"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["budget"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Avatar","2":"162","3":"2.37e+08"},{"1":"Pirates of the Caribbean: At World's End","2":"169","3":"3.00e+08"},{"1":"Spectre","2":"148","3":"2.45e+08"},{"1":"The Dark Knight Rises","2":"165","3":"2.50e+08"},{"1":"John Carter","2":"132","3":"2.60e+08"},{"1":"Spider-Man 3","2":"139","3":"2.58e+08"},{"1":"Tangled","2":"100","3":"2.60e+08"},{"1":"Avengers: Age of Ultron","2":"141","3":"2.80e+08"},{"1":"Harry Potter and the Half-Blood Prince","2":"153","3":"2.50e+08"},{"1":"Batman v Superman: Dawn of Justice","2":"151","3":"2.50e+08"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tb3ZpZXNfaW1wdXRlZCAlPiVcbiAgdGFpbChydW50aW1lLCBuID0gLTEwKVxuYGBgIn0= -->
+<pre class="r"><code>
+movies_imputed %&gt;%
+  tail(runtime, n = -10)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gdGFpbC5kYXRhLmZyYW1lKC4sIHJ1bnRpbWUsIG4gPSAtMTApIDogXG4gIG9iamVjdCAncnVudGltZScgbm90IGZvdW5kXG4ifQ== -->
+<pre><code>Error in tail.data.frame(., runtime, n = -10) : 
+  object &#39;runtime&#39; not found</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzX2ltcHV0ZWQgXG5gYGAifQ== -->
+<pre class="r"><code>movies_imputed </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -370,8 +348,45 @@ Budgets 40 millions and above as ‘Big budget’</code></pre>
 <p>Question 2.</p>
 <p>Take the original dataset with all the variables. Using across and where, summarise the number of missing values, first across all columns of type character, and then across all columns of type numeric.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzICU+JSBcbiAgc3VtbWFyaXNlKGlzLm5hKGFjcm9zcyhvcmlnaW5hbF90aXRsZTp2b3RlX2NvdW50KSlcbiAgICAgICAgICAgIGNvdW50ID0gc3VtKGlzLm5hKHJ1bnRpbWUpKSlcbiNteSBjb2RlIHRoYXQgZGlkIG5vdCB3b3JrXG5gYGAifQ== -->
+<pre class="r"><code>movies %&gt;% 
+  summarise(is.na(across(original_title:vote_count))
+            count = sum(is.na(runtime)))
+#my code that did not work</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzICU+JSBcbiAgc3VtbWFyaXNlKGFjcm9zcyh3aGVyZShpcy5jaGFyYWN0ZXIpLCB+c3VtKGlzLm5hKC4pKSkpXG5gYGAifQ== -->
+<pre class="r"><code>movies %&gt;% 
+  summarise(across(where(is.character), ~sum(is.na(.))))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDciXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBM1ZSeTA3RE1CRGN2RWdiRlZUVTcwZ093SUVQUUp3NElaQjZxMHk2dUJhdUhUbE95NUV2YjFtbk1ZMnNZc25PN0hyR3U3TjVmVnJlRjhzQ0FCSklveGlTakNCazcyL1A1U05BR2xNUVFRcFQ5LzBtMG9KQVR2dTZ2eml0QzNpMitJZVRqbkIweHNsTFVDeFRiSXN0Z1hsZjhKUzgwVVp3b1poY1dXRWxldW80bUd6MEZodkdmWHo3SjVGTThlNThNZEU3TkR1Qit5R2VHWlRJV2x5dG1mV2MzREl1aGNLZ3Q2blIrOHIzNXd6RVAzUWNhWVVtYXNsYWI4SW5DeXJBcWs5RGVvb09nU1RYalJWYWtTaDJJOHdDY1dTQ3hMeFRycE4xV1c4NjlWVSszTGtLRitZK21yWDdmNjVtZkJ6ZXlvYTNybEJ4NTNab1hySVBsSDd5WkxsM1hEVkdLT3V0VUxhdHJMYk04NHBhUzUvcHpjSGhGMjR6cFROaUFnQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["original_title"],"name":[1],"type":["int"],"align":["right"]},{"label":["title"],"name":[2],"type":["int"],"align":["right"]},{"label":["homepage"],"name":[3],"type":["int"],"align":["right"]},{"label":["original_language"],"name":[4],"type":["int"],"align":["right"]},{"label":["overview"],"name":[5],"type":["int"],"align":["right"]},{"label":["release_date"],"name":[6],"type":["int"],"align":["right"]},{"label":["tagline"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"0","3":"3091","4":"0","5":"4","6":"1","7":"844"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tb3ZpZXMgJT4lIFxuICBzdW1tYXJpc2UoYWNyb3NzKHdoZXJlKGlzLm51bWVyaWMpLCB+c3VtKGlzLm5hKC4pKSkpXG5gYGAifQ== -->
+<pre class="r"><code>
+movies %&gt;% 
+  summarise(across(where(is.numeric), ~sum(is.na(.))))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Niwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDYiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBNFZRd1U3RUlCQ2RzcVdiSldvMjhUdmFnM3J3QTR3ZllEVFptMkZickVRV0dncFZiMzc1cmxOYU5pN1JTQUs4OTVoaDNzekQzZWFhYlJnQUxDRFBDQ3dvUXFCUGovZmxMVUJPa0dTUXcycThQekRvRWtHQit6dzhUT3MvVFA2T09TbEFOZCtKSHNFNkZKbkVZdXViVnJpWnNjNTBYbkVyM2Vlc0xLMFloUGJpU0wxMmNoZnAyV0NjZU9hRHNMeU5HZ3RhYlRBd01iQ3k1cjJLSmthWDVBdVBBNjdVYWExNEg1MUdrVFhjOGVyRllqNnlmWkt5TkoyVFJtTVNHV2RJaytUTUpzTGE2OUZKVTlhdlhyK1ZOMWRqaFYrR21QM0F4VlNUSE9hL2FKeWgwSzNVc1grcStGYW9tVnhneTZIanFyTlNIOGVNYWw4NTQzaU1ZN1ZSVVFuTndmNGJnbDdyRWpzQ0FBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["budget"],"name":[1],"type":["int"],"align":["right"]},{"label":["popularity"],"name":[2],"type":["int"],"align":["right"]},{"label":["revenue"],"name":[3],"type":["int"],"align":["right"]},{"label":["runtime"],"name":[4],"type":["int"],"align":["right"]},{"label":["vote_average"],"name":[5],"type":["int"],"align":["right"]},{"label":["vote_count"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"0","3":"0","4":"2","5":"0","6":"0"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShDb2RlQ2xhbkRhdGEpCmBgYAoKYGBge3J9Cm1vdmllcyA8LSByZWFkX2NzdigiZGF0YS9tb3ZpZXMuY3N2IikKYGBgCgpRdWVzdGlvbiAxLgoKQWZ0ZXIgeW914oCZdmUgcmVhZCBpbiB0aGUgZGF0YSBhbmQgYXNzaWduZWQgaXQgdG8gYSB2YXJpYWJsZSB3aXRoIGEgdXNlZnVsIG5hbWUsIGludmVzdGlnYXRlIGl0LiBXcml0ZSBkb3duIHNvbWUgaWRlYXMgZm9yIHdoYXQgeW91IGNvdWxkIGRvIHRvIGZ1cnRoZXIgaW52ZXN0aWdhdGUvY2xlYW4gdGhpcyBkYXRhIHVzaW5nIHdoYXQgeW914oCZdmUgbGVhcm5lZCB0b2RheSAobm8gbmVlZCB0byBjb2RlIGl0IHRob3VnaCwganVzdCBqb3QgZG93biB0aG91Z2h0cyBhbmQgaWRlYXMpLiBGZWVsIGZyZWUgdG8gYWxzbyB3cml0ZSBkb3duIGFueSBnZW5lcmFsIHRob3VnaHRzIHlvdSBnZXQgbG9va2luZyBhdCB0aGUgZGF0YSAtIHRoaXMgdGFzayBpcyBqdXN0IHRvIGdldCB5b3UgdGhpbmtpbmcgYWJvdXQgZGF0YSBhbmQgZGF0YSBjbGVhbmluZy9wcmVwcGluZy4KCiNDb3VsZCBnaXZlIG1lYXN1cmVtZW50IHVuaXRzIGZvciBydW4gdGltZXMsIHJldmVudWVzLCBidWRnZXQuCiNUaXRsZSBjb2x1bW5zIGRvIGhhdmUgZGlmZmVyZW5jZXMsIGJ1dCBuZWVkIHRvIGNob3NlIGV4YWN0IHRpdGxlIG9mIGZpbG0gYXMgdG8gY3V0IGRvd24gb24gY29sdW1ucwojTGFuZ3VhZ2UgY291bGQgYmUgaW4gZnVsbCByYXRoZXIgdGhhbiBhYmJyZXZpYXRlZCAKI0NhbiB1c2UgZGF0YSB0byBzZWUgYmVzdC93b3JzdCBwcm9maXQsIG1vc3QgcG9wb2xhciBmaWxtIG9mIGEgdGltZSBlcmEgZXRjCgoKUXVlc3Rpb24gMi4KCkEgbG90IG9mIGludGVyZXN0aW5nIHN0dWZmIGluIHRoZXJlISBCdXQgZm9yIG5vdywgd2UgYXJlIG9ubHkgaW50ZXJlc3RlZCBpbiB0aGUgbW92aWVz4oCZIHRpdGxlcywgdGhlaXIgcnVudGltZSBhcyB3ZWxsIGFzIHRoZWlyIGJ1ZGdldC4gU2VsZWN0IHRoZSB0aHJlZSBjb2x1bW5zIHRoYXQgY29udGFpbiB0aGlzIGluZm9ybWF0aW9uIGFuZCBzYXZlIHRoZW0gaW50byBhIG5ldyB2YXJpYWJsZSBjYWxsZWQgbW92aWVzX3NlbGVjdGVkLiBIaW50OiB5b3Ugd2lsbCBoYXZlIHRvIG1ha2UgYSBjaG9pY2UgYmV0d2VlbiBvcmlnaW5hbF90aXRsZSBhbmQgdGl0bGUuCgpgYGB7cn0KbW92aWVzX3NlbGVjdGVkIDwtIG1vdmllcyAlPiUgCiAgc2VsZWN0KHRpdGxlLCBydW50aW1lLCBidWRnZXQpCm1vdmllc19zZWxlY3RlZCAKYGBgCgoKUXVlc3Rpb24gMy4KCk9rLCBub3cgdGFrZSB5b3VyIHN1YnNldHRlZCBkYXRhIG1vdmllc19zZWxlY3RlZCwgYW5kIGNvdW50IHRoZSBudW1iZXIgb2YgbWlzc2luZyB2YWx1ZXMgaW4gZWFjaCBjb2x1bW4uCgpgYGB7cn0KbW92aWVzX3NlbGVjdGVkICU+JSAKICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEodGl0bGUpKSkKCm1vdmllc19zZWxlY3RlZCAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHJ1bnRpbWUpKSkKCm1vdmllc19zZWxlY3RlZCAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKGJ1ZGdldCkpKQoKCgpgYGAKCgoKClF1ZXN0aW9uIDQuCgpUaGVyZeKAmXMgbm90IHRvbyBtYW55IE5BcywgYnV0IHRoZXJlIGFyZSBhY3R1YWxseSBxdWl0ZSBhIGZldyBtb3ZpZXMgd2l0aCBhIHJ1bnRpbWUgb2YgMCBpbiB0aGlzIGRhdGFzZXQuIFNpbmNlIGl04oCZcyBpbXBvc3NpYmxlIGZvciBhIG1vdmllIHRvIGhhdmUgYSBydW50aW1lIG9mIDAsIHVzZSB0aGUgZnVuY3Rpb24gbmFfaWYgdG8gY29udmVydCBydW50aW1lcyBvZiBsZW5ndGggMCBpbnRvIE5Bcy4gU2F2ZSB0aGlzIGludG8gYSBuZXcgdmFyaWFibGUgY2FsbGVkIG1vdmllc19ydW50aW1lLiBUaGVuIGNvdW50IGhvdyBtYW55IG1pc3NpbmcgdmFsdWVzIHRoZXJlIGFyZSBub3cgaW4gdGhlIGNvbHVtbiBydW50aW1lLgoKYGBge3J9Cm1vdmllc19ydW50aW1lIDwtIG1vdmllc19zZWxlY3RlZCAlPiUKICBtdXRhdGUocnVudGltZSA9IG5hX2lmKHJ1bnRpbWUsICIwIikpCiAgCm1vdmllc19ydW50aW1lICU+JQogIHN1bW1hcmlzZShjb3VudCA9IHN1bShpcy5uYShydW50aW1lKSkpCiAgCmBgYAoKClF1ZXN0aW9uIDUuCgpJbXB1dGUgdGhlIG1pc3NpbmcgdmFsdWVzIGluIHJ1bnRpbWUgd2l0aCB0aGUgbWVkaWFuIHJ1bnRpbWUgdXNpbmcgY29hbGVzY2UgYW5kIHNhdmUgdGhpcyBpbnRvIGEgbmV3IHZhcmlhYmxlIGNhbGxlZCBtb3ZpZXNfaW1wdXRlZC4gVGhlcmUgc2hvdWxkIG5vdyBiZSBubyBtaXNzaW5nIHZhbHVlcyBpbiB0aGUgY29sdW1uIHJ1bnRpbWUgLSBjaGVjayB0aGlzIHRvIG1ha2Ugc3VyZS4KCmBgYHtyfQptb3ZpZXNfcnVudGltZSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpCmBgYAoKCmBgYHtyfQptb3ZpZXNfaW1wdXRlZCA8LSBtb3ZpZXNfcnVudGltZSAlPiUgCiAgbXV0YXRlKHJ1bnRpbWUgPSBjb2FsZXNjZShydW50aW1lLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgbWVkaWFuKHJ1bnRpbWUsIG5hLnJtID0gVFJVRSkpKSAjd2h5IGlzIHRoaXMgbm90IHdvcmtpbmc/Cgptb3ZpZXNfcnVudGltZSAlPiUKICBmaWx0ZXIoaXMubmEocnVudGltZSkpCmBgYAoKUXVlc3Rpb24gNi4KCkZpbmFsbHksIHVzZSB0aGUgc2xpY2VfbWluIGFuZCBzbGljZV9tYXggZnVuY3Rpb25zIG9uIG1vdmllc19pbXB1dGVkIHRvIGdldCB0aGUgbW92aWVzIHdpdGggdGhlIDEwIHNob3J0ZXN0IGFuZCAxMCBsb25nZXN0IHJ1bnRpbWVzLgoKCmBgYHtyfQo/c2xpY2UKYGBgCgpRdWVzdGlvbiA3LgoKVXNpbmcgdGhlIGlmX2Vsc2UgZnVuY3Rpb24sIGltcHV0ZSBhbnl0aGluZyB3aXRoIGEgYnVkZ2V0IGJlbG93ICQxMDAgd2l0aCB0aGUgbWVkaWFuIGJ1ZGdldC4gT3ZlcndyaXRlIHlvdXIgbW92aWVzX2ltcHV0ZWQgc28gaXQgY29udGFpbnMgdGhlIG5ldyBidWRnZXQgdmFsdWVzLgoKMiBFeHRlbnNpb24KCgpRdWVzdGlvbiAxLgoKVXNpbmcgY2FzZV93aGVuLCBjcmVhdGUgYSBuZXcgY29sdW1uIGNhbGxlZCBidWRnZXRfdHlwZSBhbmQgbGFiZWwgYnVkZ2V0cyBhcyBmb2xsb3dzOgoKICAgIEJ1ZGdldHMgYmVsb3cgMTIgbWlsbGlvbiBhcyDigJhTbWFsbCBidWRnZXTigJkKICAgIEJ1ZGdldHMgYmV0d2VlbiAxMiBhbmQgNDAgbWlsbGlvbiBhcyDigJhNZWRpdW0gYnVkZ2V04oCZCiAgICBCdWRnZXRzIDQwIG1pbGxpb25zIGFuZCBhYm92ZSBhcyDigJhCaWcgYnVkZ2V04oCZCgpTYXZlIHRoaXMgaW50byBhIG5ldyB2YXJpYWJsZSBjYWxsZWQgbW92aWVfYnVkZ2V0cy4KSGludDoKMWU2IGlzIGEgc2hvcnRoYW5kIHdheSBvZiB3cml0aW5nIDEgbWlsbGlvbiAoKQoKCgpRdWVzdGlvbiAyLgoKVGFrZSB0aGUgb3JpZ2luYWwgZGF0YXNldCB3aXRoIGFsbCB0aGUgdmFyaWFibGVzLiBVc2luZyBhY3Jvc3MgYW5kIHdoZXJlLCBzdW1tYXJpc2UgdGhlIG51bWJlciBvZiBtaXNzaW5nIHZhbHVlcywgZmlyc3QgYWNyb3NzIGFsbCBjb2x1bW5zIG9mIHR5cGUgY2hhcmFjdGVyLCBhbmQgdGhlbiBhY3Jvc3MgYWxsIGNvbHVtbnMgb2YgdHlwZSBudW1lcmljLg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShDb2RlQ2xhbkRhdGEpCmBgYAoKYGBge3J9Cm1vdmllcyA8LSByZWFkX2NzdigiZGF0YS9tb3ZpZXMuY3N2IikKYGBgCgpRdWVzdGlvbiAxLgoKQWZ0ZXIgeW914oCZdmUgcmVhZCBpbiB0aGUgZGF0YSBhbmQgYXNzaWduZWQgaXQgdG8gYSB2YXJpYWJsZSB3aXRoIGEgdXNlZnVsIG5hbWUsIGludmVzdGlnYXRlIGl0LiBXcml0ZSBkb3duIHNvbWUgaWRlYXMgZm9yIHdoYXQgeW91IGNvdWxkIGRvIHRvIGZ1cnRoZXIgaW52ZXN0aWdhdGUvY2xlYW4gdGhpcyBkYXRhIHVzaW5nIHdoYXQgeW914oCZdmUgbGVhcm5lZCB0b2RheSAobm8gbmVlZCB0byBjb2RlIGl0IHRob3VnaCwganVzdCBqb3QgZG93biB0aG91Z2h0cyBhbmQgaWRlYXMpLiBGZWVsIGZyZWUgdG8gYWxzbyB3cml0ZSBkb3duIGFueSBnZW5lcmFsIHRob3VnaHRzIHlvdSBnZXQgbG9va2luZyBhdCB0aGUgZGF0YSAtIHRoaXMgdGFzayBpcyBqdXN0IHRvIGdldCB5b3UgdGhpbmtpbmcgYWJvdXQgZGF0YSBhbmQgZGF0YSBjbGVhbmluZy9wcmVwcGluZy4KCiNDb3VsZCBnaXZlIG1lYXN1cmVtZW50IHVuaXRzIGZvciBydW4gdGltZXMsIHJldmVudWVzLCBidWRnZXQuCiNUaXRsZSBjb2x1bW5zIGRvIGhhdmUgZGlmZmVyZW5jZXMsIGJ1dCBuZWVkIHRvIGNob3NlIGV4YWN0IHRpdGxlIG9mIGZpbG0gYXMgdG8gY3V0IGRvd24gb24gY29sdW1ucwojTGFuZ3VhZ2UgY291bGQgYmUgaW4gZnVsbCByYXRoZXIgdGhhbiBhYmJyZXZpYXRlZCAKI0NhbiB1c2UgZGF0YSB0byBzZWUgYmVzdC93b3JzdCBwcm9maXQsIG1vc3QgcG9wb2xhciBmaWxtIG9mIGEgdGltZSBlcmEgZXRjCgoKUXVlc3Rpb24gMi4KCkEgbG90IG9mIGludGVyZXN0aW5nIHN0dWZmIGluIHRoZXJlISBCdXQgZm9yIG5vdywgd2UgYXJlIG9ubHkgaW50ZXJlc3RlZCBpbiB0aGUgbW92aWVz4oCZIHRpdGxlcywgdGhlaXIgcnVudGltZSBhcyB3ZWxsIGFzIHRoZWlyIGJ1ZGdldC4gU2VsZWN0IHRoZSB0aHJlZSBjb2x1bW5zIHRoYXQgY29udGFpbiB0aGlzIGluZm9ybWF0aW9uIGFuZCBzYXZlIHRoZW0gaW50byBhIG5ldyB2YXJpYWJsZSBjYWxsZWQgbW92aWVzX3NlbGVjdGVkLiBIaW50OiB5b3Ugd2lsbCBoYXZlIHRvIG1ha2UgYSBjaG9pY2UgYmV0d2VlbiBvcmlnaW5hbF90aXRsZSBhbmQgdGl0bGUuCgpgYGB7cn0KbW92aWVzX3NlbGVjdGVkIDwtIG1vdmllcyAlPiUgCiAgc2VsZWN0KHRpdGxlLCBydW50aW1lLCBidWRnZXQpCm1vdmllc19zZWxlY3RlZCAKYGBgCgoKUXVlc3Rpb24gMy4KCk9rLCBub3cgdGFrZSB5b3VyIHN1YnNldHRlZCBkYXRhIG1vdmllc19zZWxlY3RlZCwgYW5kIGNvdW50IHRoZSBudW1iZXIgb2YgbWlzc2luZyB2YWx1ZXMgaW4gZWFjaCBjb2x1bW4uCgpgYGB7cn0KbW92aWVzX3NlbGVjdGVkICU+JSAKICBzdW1tYXJpc2UoY291bnQgPSBzdW0oaXMubmEodGl0bGUpKSkKCm1vdmllc19zZWxlY3RlZCAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKHJ1bnRpbWUpKSkKCm1vdmllc19zZWxlY3RlZCAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gc3VtKGlzLm5hKGJ1ZGdldCkpKQoKCgpgYGAKCgoKClF1ZXN0aW9uIDQuCgpUaGVyZeKAmXMgbm90IHRvbyBtYW55IE5BcywgYnV0IHRoZXJlIGFyZSBhY3R1YWxseSBxdWl0ZSBhIGZldyBtb3ZpZXMgd2l0aCBhIHJ1bnRpbWUgb2YgMCBpbiB0aGlzIGRhdGFzZXQuIFNpbmNlIGl04oCZcyBpbXBvc3NpYmxlIGZvciBhIG1vdmllIHRvIGhhdmUgYSBydW50aW1lIG9mIDAsIHVzZSB0aGUgZnVuY3Rpb24gbmFfaWYgdG8gY29udmVydCBydW50aW1lcyBvZiBsZW5ndGggMCBpbnRvIE5Bcy4gU2F2ZSB0aGlzIGludG8gYSBuZXcgdmFyaWFibGUgY2FsbGVkIG1vdmllc19ydW50aW1lLiBUaGVuIGNvdW50IGhvdyBtYW55IG1pc3NpbmcgdmFsdWVzIHRoZXJlIGFyZSBub3cgaW4gdGhlIGNvbHVtbiBydW50aW1lLgoKYGBge3J9Cm1vdmllc19ydW50aW1lIDwtIG1vdmllc19zZWxlY3RlZCAlPiUKICBtdXRhdGUocnVudGltZSA9IG5hX2lmKHJ1bnRpbWUsICIwIikpCiAgCm1vdmllc19ydW50aW1lICU+JQogIHN1bW1hcmlzZShjb3VudCA9IHN1bShpcy5uYShydW50aW1lKSkpCiAgCmBgYAoKClF1ZXN0aW9uIDUuCgpJbXB1dGUgdGhlIG1pc3NpbmcgdmFsdWVzIGluIHJ1bnRpbWUgd2l0aCB0aGUgbWVkaWFuIHJ1bnRpbWUgdXNpbmcgY29hbGVzY2UgYW5kIHNhdmUgdGhpcyBpbnRvIGEgbmV3IHZhcmlhYmxlIGNhbGxlZCBtb3ZpZXNfaW1wdXRlZC4gVGhlcmUgc2hvdWxkIG5vdyBiZSBubyBtaXNzaW5nIHZhbHVlcyBpbiB0aGUgY29sdW1uIHJ1bnRpbWUgLSBjaGVjayB0aGlzIHRvIG1ha2Ugc3VyZS4KCgpgYGB7cn0KbW92aWVzX2ltcHV0ZWQgPC0gbW92aWVzX3J1bnRpbWUgJT4lIAogIG11dGF0ZShydW50aW1lID0gY29hbGVzY2UocnVudGltZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1lZGlhbihydW50aW1lLCBuYS5ybSA9IFRSVUUpKSkKCm1vdmllc19pbXB1dGVkICU+JQogIGZpbHRlcihpcy5uYShydW50aW1lKSkKYGBgCgpRdWVzdGlvbiA2LgoKRmluYWxseSwgdXNlIHRoZSBzbGljZV9taW4gYW5kIHNsaWNlX21heCBmdW5jdGlvbnMgb24gbW92aWVzX2ltcHV0ZWQgdG8gZ2V0IHRoZSBtb3ZpZXMgd2l0aCB0aGUgMTAgc2hvcnRlc3QgYW5kIDEwIGxvbmdlc3QgcnVudGltZXMuCgoKYGBge3J9Cm1vdmllc19pbXB1dGVkICU+JQogIGhlYWQocnVudGltZSwgbiA9IDEwKQoKbW92aWVzX2ltcHV0ZWQgJT4lCiAgdGFpbChydW50aW1lLCBuID0gLTEwKQpgYGAKYGBge3J9Cm1vdmllc19pbXB1dGVkIApgYGAKCgpRdWVzdGlvbiA3LgoKVXNpbmcgdGhlIGlmX2Vsc2UgZnVuY3Rpb24sIGltcHV0ZSBhbnl0aGluZyB3aXRoIGEgYnVkZ2V0IGJlbG93ICQxMDAgd2l0aCB0aGUgbWVkaWFuIGJ1ZGdldC4gT3ZlcndyaXRlIHlvdXIgbW92aWVzX2ltcHV0ZWQgc28gaXQgY29udGFpbnMgdGhlIG5ldyBidWRnZXQgdmFsdWVzLgoKMiBFeHRlbnNpb24KCgpRdWVzdGlvbiAxLgoKVXNpbmcgY2FzZV93aGVuLCBjcmVhdGUgYSBuZXcgY29sdW1uIGNhbGxlZCBidWRnZXRfdHlwZSBhbmQgbGFiZWwgYnVkZ2V0cyBhcyBmb2xsb3dzOgoKICAgIEJ1ZGdldHMgYmVsb3cgMTIgbWlsbGlvbiBhcyDigJhTbWFsbCBidWRnZXTigJkKICAgIEJ1ZGdldHMgYmV0d2VlbiAxMiBhbmQgNDAgbWlsbGlvbiBhcyDigJhNZWRpdW0gYnVkZ2V04oCZCiAgICBCdWRnZXRzIDQwIG1pbGxpb25zIGFuZCBhYm92ZSBhcyDigJhCaWcgYnVkZ2V04oCZCgpTYXZlIHRoaXMgaW50byBhIG5ldyB2YXJpYWJsZSBjYWxsZWQgbW92aWVfYnVkZ2V0cy4KSGludDoKMWU2IGlzIGEgc2hvcnRoYW5kIHdheSBvZiB3cml0aW5nIDEgbWlsbGlvbiAoKQoKCgpRdWVzdGlvbiAyLgoKVGFrZSB0aGUgb3JpZ2luYWwgZGF0YXNldCB3aXRoIGFsbCB0aGUgdmFyaWFibGVzLiBVc2luZyBhY3Jvc3MgYW5kIHdoZXJlLCBzdW1tYXJpc2UgdGhlIG51bWJlciBvZiBtaXNzaW5nIHZhbHVlcywgZmlyc3QgYWNyb3NzIGFsbCBjb2x1bW5zIG9mIHR5cGUgY2hhcmFjdGVyLCBhbmQgdGhlbiBhY3Jvc3MgYWxsIGNvbHVtbnMgb2YgdHlwZSBudW1lcmljLgoKYGBge3J9Cm1vdmllcyAlPiUgCiAgc3VtbWFyaXNlKGlzLm5hKGFjcm9zcyhvcmlnaW5hbF90aXRsZTp2b3RlX2NvdW50KSkKICAgICAgICAgICAgY291bnQgPSBzdW0oaXMubmEocnVudGltZSkpKQojbXkgY29kZSB0aGF0IGRpZCBub3Qgd29yawpgYGAKCmBgYHtyfQptb3ZpZXMgJT4lIAogIHN1bW1hcmlzZShhY3Jvc3Mod2hlcmUoaXMuY2hhcmFjdGVyKSwgfnN1bShpcy5uYSguKSkpKQoKbW92aWVzICU+JSAKICBzdW1tYXJpc2UoYWNyb3NzKHdoZXJlKGlzLm51bWVyaWMpLCB+c3VtKGlzLm5hKC4pKSkpCmBgYAoK</div>
 
 
 

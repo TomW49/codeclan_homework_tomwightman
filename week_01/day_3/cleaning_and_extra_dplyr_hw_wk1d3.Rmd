@@ -73,18 +73,13 @@ Question 5.
 
 Impute the missing values in runtime with the median runtime using coalesce and save this into a new variable called movies_imputed. There should now be no missing values in the column runtime - check this to make sure.
 
-```{r}
-movies_runtime %>% 
-  summarise(count = median(runtime, na.rm = TRUE))
-```
-
 
 ```{r}
 movies_imputed <- movies_runtime %>% 
   mutate(runtime = coalesce(runtime,
-                            median(runtime, na.rm = TRUE))) #why is this not working?
+                            median(runtime, na.rm = TRUE)))
 
-movies_runtime %>%
+movies_imputed %>%
   filter(is.na(runtime))
 ```
 
@@ -94,8 +89,16 @@ Finally, use the slice_min and slice_max functions on movies_imputed to get the 
 
 
 ```{r}
-?slice
+movies_imputed %>%
+  head(runtime, n = 10)
+
+movies_imputed %>%
+  tail(runtime, n = -10)
 ```
+```{r}
+movies_imputed 
+```
+
 
 Question 7.
 
@@ -121,3 +124,19 @@ Hint:
 Question 2.
 
 Take the original dataset with all the variables. Using across and where, summarise the number of missing values, first across all columns of type character, and then across all columns of type numeric.
+
+```{r}
+movies %>% 
+  summarise(is.na(across(original_title:vote_count))
+            count = sum(is.na(runtime)))
+#my code that did not work
+```
+
+```{r}
+movies %>% 
+  summarise(across(where(is.character), ~sum(is.na(.))))
+
+movies %>% 
+  summarise(across(where(is.numeric), ~sum(is.na(.))))
+```
+
