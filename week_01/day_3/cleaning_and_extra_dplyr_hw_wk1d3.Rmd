@@ -47,9 +47,15 @@ movies_selected %>%
 
 movies_selected %>% 
   summarise(count = sum(is.na(budget)))
+```
 
 
-
+HW ANSWER
+```{r}
+movies_selected %>% 
+  summarise(na_runtime = sum(is.na(runtime)),
+            na_title = sum(is.na(title)),
+            na_budget = sum(is.na(budget)))
 ```
 
 
@@ -68,6 +74,13 @@ movies_runtime %>%
   
 ```
 
+```{r}
+movies_runtime <- movies_selected %>%
+  mutate(runtime = na_if(runtime, 0))
+
+movies_runtime %>% 
+  summarise(count = sum(is.na(runtime)))
+```
 
 Question 5.
 
@@ -81,6 +94,14 @@ movies_imputed <- movies_runtime %>%
 
 movies_imputed %>%
   filter(is.na(runtime))
+```
+
+```{r}
+movies_imputed <- movies_runtime %>%  
+  mutate(runtime = coalesce(runtime, median(runtime, na.rm = TRUE)))
+
+movies_imputed %>% 
+  summarise(count = sum(is.na(runtime)))
 ```
 
 Question 6.
@@ -111,6 +132,11 @@ movie_budgets_imputed %>%
   filter(is.na(budget))
   
 #this was a copy and paste of other code, tweaked it but not enough 
+```
+
+```{r}
+movies_imputed <- movies_imputed %>% 
+  mutate(budget = if_else(budget < 100, median(budget), budget))
 ```
 
 
