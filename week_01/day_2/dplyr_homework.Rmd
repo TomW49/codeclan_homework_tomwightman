@@ -6,6 +6,7 @@ output: html_notebook
 
 ```{r}
 library(CodeClanData)
+library(tidyverse)
 ```
 
 ```{r}
