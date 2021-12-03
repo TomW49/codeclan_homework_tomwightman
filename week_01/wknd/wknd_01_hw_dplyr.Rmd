@@ -2,3 +2,68 @@
 title: "R Notebook"
 output: html_notebook
 ---
+
+### First steps
+
+Load necessary packages and read in `books.csv`. Investigate dimensions, variables, missing values - you know the drill!
+
+### Up to you
+
+Now it's up to you... For this weekend homework there will be no specific tasks, just you and this dataset! Using everything you've learned this week, try to describe/summarise at least 5 things about this dataset - using R and the tidyverse of course! Feel free to find and use new functions if there is something that the tidyverse doesn't offer, but do try to use this homework to apply what you have learned this week. Be prepared to share one of your findings on Monday!
+
+### Remember
+
+Before you submit, go through your weekend homework and make sure your code is following best practices as laid out in the `coding_best_practice` lesson.
+###
+
+
+```{r}
+library(tidyverse)
+books <- read_csv("data/books.csv")
+#reading in the dataset and the correct package for desired tools
+```
+
+```{r}
+glimpse(books)
+str(books)
+view(books)
+dim(books)
+# 11123 arguments and 13 observations, made up of <chr> and <dbl>
+# have noticed that some books may have been removed from the dataset, as "rowid" and "bookID" do not match
+
+books %>% 
+  summarise(across(everything(), 
+                   .fns = ~ sum(is.na(.x))))
+# investigating the dataset, code 24-26 details if and NA within data - which there is not
+```
+
+#Q1. The top 5 rated authors?
+
+```{r}
+best_authors <- books %>% 
+  group_by(authors) %>% 
+  summarise(avg_rating = mean(average_rating))
+
+slice_max(best_authors, avg_rating, n = 5)
+# after using this, I have noticed that this is an unfair comparison as some books have been rated very little and received higher ratings
+```
+
+```{r}
+books %>% 
+  summarise(avg_rating_count = mean(ratings_count)) %>% 
+  pull()
+# aiming to get the average number of ratings per book, to use that figure as a limit to the number of books I will make comparisons with
+```
+
+```{r}
+books %>% 
+  group_by(authors) %>% 
+  summarise(average_rating >= 17942.85 )
+  
+# aiming to only compare authors of have an average rating count higher than the average rating count for all books  
+```
+
+
+
+
+

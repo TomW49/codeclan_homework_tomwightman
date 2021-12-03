@@ -215,9 +215,86 @@ pre code {
 
 
 <!-- rnb-text-begin -->
+<div id="first-steps" class="section level3">
+<h3>First steps</h3>
+<p>Load necessary packages and read in <code>books.csv</code>. Investigate dimensions, variables, missing values - you know the drill!</p>
+</div>
+<div id="up-to-you" class="section level3">
+<h3>Up to you</h3>
+<p>Now it’s up to you… For this weekend homework there will be no specific tasks, just you and this dataset! Using everything you’ve learned this week, try to describe/summarise at least 5 things about this dataset - using R and the tidyverse of course! Feel free to find and use new functions if there is something that the tidyverse doesn’t offer, but do try to use this homework to apply what you have learned this week. Be prepared to share one of your findings on Monday!</p>
+</div>
+<div id="remember" class="section level3">
+<h3>Remember</h3>
+<p>Before you submit, go through your weekend homework and make sure your code is following best practices as laid out in the <code>coding_best_practice</code> lesson. ###</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5ib29rcyA8LSByZWFkX2NzdihcImRhdGEvYm9va3MuY3N2XCIpXG4jcmVhZGluZyBpbiB0aGUgZGF0YXNldCBhbmQgdGhlIGNvcnJlY3QgcGFja2FnZSBmb3IgZGVzaXJlZCB0b29sc1xuYGBgIn0= -->
+<pre class="r"><code>library(tidyverse)
+books &lt;- read_csv(&quot;data/books.csv&quot;)
+#reading in the dataset and the correct package for desired tools</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShib29rcylcbnN0cihib29rcylcbnZpZXcoYm9va3MpXG5kaW0oYm9va3MpXG4jIDExMTIzIGFyZ3VtZW50cyBhbmQgMTMgb2JzZXJ2YXRpb25zLCBtYWRlIHVwIG9mIDxjaHI+IGFuZCA8ZGJsPlxuIyBoYXZlIG5vdGljZWQgdGhhdCBzb21lIGJvb2tzIG1heSBoYXZlIGJlZW4gcmVtb3ZlZCBmcm9tIHRoZSBkYXRhc2V0LCBhcyBcInJvd2lkXCIgYW5kIFwiYm9va0lEXCIgZG8gbm90IG1hdGNoXG5cbmJvb2tzICU+JSBcbiAgc3VtbWFyaXNlKGFjcm9zcyhldmVyeXRoaW5nKCksIFxuICAgICAgICAgICAgICAgICAgIC5mbnMgPSB+IHN1bShpcy5uYSgueCkpKSlcbiMgaW52ZXN0aWdhdGluZyB0aGUgZGF0YXNldCwgY29kZSAyNC0yNiBkZXRhaWxzIGlmIGFuZCBOQSB3aXRoaW4gZGF0YSAtIHdoaWNoIHRoZXJlIGlzIG5vdFxuYGBgIn0= -->
+<pre class="r"><code>glimpse(books)
+str(books)
+view(books)
+dim(books)
+# 11123 arguments and 13 observations, made up of &lt;chr&gt; and &lt;dbl&gt;
+# have noticed that some books may have been removed from the dataset, as &quot;rowid&quot; and &quot;bookID&quot; do not match
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQo=</div>
+books %&gt;% 
+  summarise(across(everything(), 
+                   .fns = ~ sum(is.na(.x))))
+# investigating the dataset, code 24-26 details if and NA within data - which there is not</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#Q1. The top 5 rated authors?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmVzdF9hdXRob3JzIDwtIGJvb2tzICU+JSBcbiAgZ3JvdXBfYnkoYXV0aG9ycykgJT4lIFxuICBzdW1tYXJpc2UoYXZnX3JhdGluZyA9IG1lYW4oYXZlcmFnZV9yYXRpbmcpKVxuXG5zbGljZV9tYXgoYmVzdF9hdXRob3JzLCBhdmdfcmF0aW5nLCBuID0gNSlcbiMgYWZ0ZXIgdXNpbmcgdGhpcywgSSBoYXZlIG5vdGljZWQgdGhhdCB0aGlzIGlzIGFuIHVuZmFpciBjb21wYXJpc29uIGFzIHNvbWUgYm9va3MgaGF2ZSBiZWVuIHJhdGVkIHZlcnkgbGl0dGxlIGFuZCByZWNlaXZlZCBoaWdoZXIgcmF0aW5nc1xuYGBgIn0= -->
+<pre class="r"><code>best_authors &lt;- books %&gt;% 
+  group_by(authors) %&gt;% 
+  summarise(avg_rating = mean(average_rating))
+
+slice_max(best_authors, avg_rating, n = 5)
+# after using this, I have noticed that this is an unfair comparison as some books have been rated very little and received higher ratings</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9va3MgJT4lIFxuICBzdW1tYXJpc2UoYXZnX3JhdGluZ19jb3VudCA9IG1lYW4ocmF0aW5nc19jb3VudCkpICU+JSBcbiAgcHVsbCgpXG5gYGAifQ== -->
+<pre class="r"><code>books %&gt;% 
+  summarise(avg_rating_count = mean(ratings_count)) %&gt;% 
+  pull()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE3OTQyLjg1XG4ifQ== -->
+<pre><code>[1] 17942.85</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBhaW1pbmcgdG8gZ2V0IHRoZSBhdmVyYWdlIG51bWJlciBvZiByYXRpbmdzIHBlciBib29rLCB0byB1c2UgdGhhdCBmaWd1cmUgYXMgYSBsaW1pdCB0byB0aGUgbnVtYmVyIG9mIGJvb2tzIEkgd2lsbCBtYWtlIGNvbXBhcmlzb25zIHdpdGhcbmBgYCJ9 -->
+<pre class="r"><code># aiming to get the average number of ratings per book, to use that figure as a limit to the number of books I will make comparisons with</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9va3MgJT4lIFxuICBncm91cF9ieShhdXRob3JzKSAlPiUgXG4gIHN1bW1hcmlzZShhdmVyYWdlX3JhdGluZyA+PSAxNzk0Mi44NSApXG4gIFxuIyBhaW1pbmcgdG8gb25seSBjb21wYXJlIGF1dGhvcnMgb2YgaGF2ZSBhbiBhdmVyYWdlIHJhdGluZyBjb3VudCBoaWdoZXIgdGhhbiB0aGUgYXZlcmFnZSByYXRpbmcgY291bnQgZm9yIGFsbCBib29rcyAgXG5gYGAifQ== -->
+<pre class="r"><code>books %&gt;% 
+  group_by(authors) %&gt;% 
+  summarise(average_rating &gt;= 17942.85 )
+  
+# aiming to only compare authors of have an average rating count higher than the average rating count for all books  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMjIEZpcnN0IHN0ZXBzCgpMb2FkIG5lY2Vzc2FyeSBwYWNrYWdlcyBhbmQgcmVhZCBpbiBgYm9va3MuY3N2YC4gSW52ZXN0aWdhdGUgZGltZW5zaW9ucywgdmFyaWFibGVzLCBtaXNzaW5nIHZhbHVlcyAtIHlvdSBrbm93IHRoZSBkcmlsbCEKCiMjIyBVcCB0byB5b3UKCk5vdyBpdCdzIHVwIHRvIHlvdS4uLiBGb3IgdGhpcyB3ZWVrZW5kIGhvbWV3b3JrIHRoZXJlIHdpbGwgYmUgbm8gc3BlY2lmaWMgdGFza3MsIGp1c3QgeW91IGFuZCB0aGlzIGRhdGFzZXQhIFVzaW5nIGV2ZXJ5dGhpbmcgeW91J3ZlIGxlYXJuZWQgdGhpcyB3ZWVrLCB0cnkgdG8gZGVzY3JpYmUvc3VtbWFyaXNlIGF0IGxlYXN0IDUgdGhpbmdzIGFib3V0IHRoaXMgZGF0YXNldCAtIHVzaW5nIFIgYW5kIHRoZSB0aWR5dmVyc2Ugb2YgY291cnNlISBGZWVsIGZyZWUgdG8gZmluZCBhbmQgdXNlIG5ldyBmdW5jdGlvbnMgaWYgdGhlcmUgaXMgc29tZXRoaW5nIHRoYXQgdGhlIHRpZHl2ZXJzZSBkb2Vzbid0IG9mZmVyLCBidXQgZG8gdHJ5IHRvIHVzZSB0aGlzIGhvbWV3b3JrIHRvIGFwcGx5IHdoYXQgeW91IGhhdmUgbGVhcm5lZCB0aGlzIHdlZWsuIEJlIHByZXBhcmVkIHRvIHNoYXJlIG9uZSBvZiB5b3VyIGZpbmRpbmdzIG9uIE1vbmRheSEKCiMjIyBSZW1lbWJlcgoKQmVmb3JlIHlvdSBzdWJtaXQsIGdvIHRocm91Z2ggeW91ciB3ZWVrZW5kIGhvbWV3b3JrIGFuZCBtYWtlIHN1cmUgeW91ciBjb2RlIGlzIGZvbGxvd2luZyBiZXN0IHByYWN0aWNlcyBhcyBsYWlkIG91dCBpbiB0aGUgYGNvZGluZ19iZXN0X3ByYWN0aWNlYCBsZXNzb24uCiMjIwoKCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYm9va3MgPC0gcmVhZF9jc3YoImRhdGEvYm9va3MuY3N2IikKI3JlYWRpbmcgaW4gdGhlIGRhdGFzZXQgYW5kIHRoZSBjb3JyZWN0IHBhY2thZ2UgZm9yIGRlc2lyZWQgdG9vbHMKYGBgCgpgYGB7cn0KZ2xpbXBzZShib29rcykKc3RyKGJvb2tzKQp2aWV3KGJvb2tzKQpkaW0oYm9va3MpCiMgMTExMjMgYXJndW1lbnRzIGFuZCAxMyBvYnNlcnZhdGlvbnMsIG1hZGUgdXAgb2YgPGNocj4gYW5kIDxkYmw+CiMgaGF2ZSBub3RpY2VkIHRoYXQgc29tZSBib29rcyBtYXkgaGF2ZSBiZWVuIHJlbW92ZWQgZnJvbSB0aGUgZGF0YXNldCwgYXMgInJvd2lkIiBhbmQgImJvb2tJRCIgZG8gbm90IG1hdGNoCgpib29rcyAlPiUgCiAgc3VtbWFyaXNlKGFjcm9zcyhldmVyeXRoaW5nKCksIAogICAgICAgICAgICAgICAgICAgLmZucyA9IH4gc3VtKGlzLm5hKC54KSkpKQojIGludmVzdGlnYXRpbmcgdGhlIGRhdGFzZXQsIGNvZGUgMjQtMjYgZGV0YWlscyBpZiBhbmQgTkEgd2l0aGluIGRhdGEgLSB3aGljaCB0aGVyZSBpcyBub3QKYGBgCgojUTEuIFRoZSB0b3AgNSByYXRlZCBhdXRob3JzPwoKYGBge3J9CmJlc3RfYXV0aG9ycyA8LSBib29rcyAlPiUgCiAgZ3JvdXBfYnkoYXV0aG9ycykgJT4lIAogIHN1bW1hcmlzZShhdmdfcmF0aW5nID0gbWVhbihhdmVyYWdlX3JhdGluZykpCgpzbGljZV9tYXgoYmVzdF9hdXRob3JzLCBhdmdfcmF0aW5nLCBuID0gNSkKIyBhZnRlciB1c2luZyB0aGlzLCBJIGhhdmUgbm90aWNlZCB0aGF0IHRoaXMgaXMgYW4gdW5mYWlyIGNvbXBhcmlzb24gYXMgc29tZSBib29rcyBoYXZlIGJlZW4gcmF0ZWQgdmVyeSBsaXR0bGUgYW5kIHJlY2VpdmVkIGhpZ2hlciByYXRpbmdzCmBgYAoKYGBge3J9CmJvb2tzICU+JSAKICBzdW1tYXJpc2UoYXZnX3JhdGluZ19jb3VudCA9IG1lYW4ocmF0aW5nc19jb3VudCkpICU+JSAKICBwdWxsKCkKIyBhaW1pbmcgdG8gZ2V0IHRoZSBhdmVyYWdlIG51bWJlciBvZiByYXRpbmdzIHBlciBib29rLCB0byB1c2UgdGhhdCBmaWd1cmUgYXMgYSBsaW1pdCB0byB0aGUgbnVtYmVyIG9mIGJvb2tzIEkgd2lsbCBtYWtlIGNvbXBhcmlzb25zIHdpdGgKYGBgCgpgYGB7cn0KYm9va3MgJT4lIAogIGdyb3VwX2J5KGF1dGhvcnMpICU+JSAKICBzdW1tYXJpc2UoYXZlcmFnZV9yYXRpbmcgPj0gMTc5NDIuODUgKQogIAojIGFpbWluZyB0byBvbmx5IGNvbXBhcmUgYXV0aG9ycyBvZiBoYXZlIGFuIGF2ZXJhZ2UgcmF0aW5nIGNvdW50IGhpZ2hlciB0aGFuIHRoZSBhdmVyYWdlIHJhdGluZyBjb3VudCBmb3IgYWxsIGJvb2tzICAKYGBgCgoKCgoK</div>
 
 
 
