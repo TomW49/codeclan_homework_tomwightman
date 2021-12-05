@@ -29,15 +29,25 @@ str(books)
 view(books)
 dim(books)
 # 11123 arguments and 13 observations, made up of <chr> and <dbl>
-# have noticed that some books may have been removed from the dataset, as "rowid" and "bookID" do not match
+# have noticed that some books may have been removed from the dataset, as "rowid" and "bookID" do not match in terms of similar numbers
+# also some arguments have inconsistent layout
 
 books %>% 
   summarise(across(everything(), 
                    .fns = ~ sum(is.na(.x))))
-# investigating the dataset, code 24-26 details if and NA within data - which there is not
+# investigating the dataset, code 24-26 details if and NA within data and where - which there is not
 ```
 
-#Q1. The top 5 rated authors?
+```{r}
+
+library("janitor")
+
+books <- books %>% 
+  clean_names()
+```
+
+---Q1. The top 5 rated authors?
+
 
 ```{r}
 best_authors <- books %>% 
@@ -49,7 +59,7 @@ slice_max(best_authors, avg_rating, n = 5)
 ```
 
 ```{r}
-books %>% 
+avg_rating_count <- books %>% 
   summarise(avg_rating_count = mean(ratings_count)) %>% 
   pull()
 # aiming to get the average number of ratings per book, to use that figure as a limit to the number of books I will make comparisons with
@@ -57,13 +67,23 @@ books %>%
 
 ```{r}
 books %>% 
-  group_by(authors) %>% 
-  summarise(average_rating >= 17942.85 )
+  filter(ratings_count >= avg_rating_count) %>% 
+  slice_max(average_rating, n = 5 )
   
-# aiming to only compare authors of have an average rating count higher than the average rating count for all books  
+# aiming to only compare authors of have an average rating count >= than the average rating count for all books  
 ```
 
+---Q2. Longest book and shortest book?
 
+```{r}
+books %>%
+  slice_max(num_pages) %>% 
+  summarise(title,num_pages)
 
+books %>%
+  slice_min(num_pages) %>% 
+  summarise(title,num_pages)
+
+```
 
 
