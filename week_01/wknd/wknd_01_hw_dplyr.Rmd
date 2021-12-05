@@ -2,88 +2,142 @@
 title: "R Notebook"
 output: html_notebook
 ---
-
-### First steps
-
-Load necessary packages and read in `books.csv`. Investigate dimensions, variables, missing values - you know the drill!
-
-### Up to you
-
-Now it's up to you... For this weekend homework there will be no specific tasks, just you and this dataset! Using everything you've learned this week, try to describe/summarise at least 5 things about this dataset - using R and the tidyverse of course! Feel free to find and use new functions if there is something that the tidyverse doesn't offer, but do try to use this homework to apply what you have learned this week. Be prepared to share one of your findings on Monday!
-
-### Remember
-
-Before you submit, go through your weekend homework and make sure your code is following best practices as laid out in the `coding_best_practice` lesson.
-###
-
-
+--- Reading in the Dataset and the correct package for desired tools
 ```{r}
 library(tidyverse)
 books <- read_csv("data/books.csv")
-#reading in the dataset and the correct package for desired tools
 ```
 
+--- Investigating the Data
 ```{r}
 glimpse(books)
 str(books)
 view(books)
 dim(books)
 # 11123 arguments and 13 observations, made up of <chr> and <dbl>
-# have noticed that some books may have been removed from the dataset, as "rowid" and "bookID" do not match in terms of similar numbers
+# have noticed that some books may have been removed from the dataset, as                                                             "rowid" and "bookID" do not match in terms of similar numbers
 # also some arguments have inconsistent layout
 
 books %>% 
   summarise(across(everything(), 
                    .fns = ~ sum(is.na(.x))))
-# investigating the dataset, code 24-26 details if and NA within data and where - which there is not
+# details if any NA within data and where they are - when run shows no NA's
 ```
 
+--- Cleaning the data using Janitor Package 
 ```{r}
-
 library("janitor")
 
 books <- books %>% 
   clean_names()
+# removed capitalisation of titles and put in _'s
 ```
 
----Q1. The top 5 rated authors?
-
-
+--- Q1. The top 5 rated authors?
 ```{r}
 best_authors <- books %>% 
   group_by(authors) %>% 
   summarise(avg_rating = mean(average_rating))
 
-slice_max(best_authors, avg_rating, n = 5)
-# after using this, I have noticed that this is an unfair comparison as some books have been rated very little and received higher ratings
+slice_max(best_authors, avg_rating, n = 5, with_ties = FALSE)
+# after using this, I have noticed that this is an unfair comparison as some                                                          books have been rated very little and received higher ratings
 ```
 
 ```{r}
 avg_rating_count <- books %>% 
   summarise(avg_rating_count = mean(ratings_count)) %>% 
   pull()
-# aiming to get the average number of ratings per book, to use that figure as a limit to the number of books I will make comparisons with
+avg_rating_count
+# aiming to get the average number of ratings per book, to use that figure as                                                             a limit to the number of books I will make comparisons with
 ```
 
 ```{r}
 books %>% 
   filter(ratings_count >= avg_rating_count) %>% 
-  slice_max(average_rating, n = 5 )
-  
-# aiming to only compare authors of have an average rating count >= than the average rating count for all books  
+  group_by(authors) %>% 
+  summarise(avg_rating = mean(average_rating)) %>% 
+  slice_max(avg_rating, n = 5)
+# had to group the authors, then get an average of their ratings, then slice
+# Bill Watterson according to this data set it the highest rated author
 ```
-
----Q2. Longest book and shortest book?
 
 ```{r}
-books %>%
-  slice_max(num_pages) %>% 
-  summarise(title,num_pages)
-
-books %>%
-  slice_min(num_pages) %>% 
-  summarise(title,num_pages)
-
+books %>% 
+  filter(authors == "Bill Watterson")
+# finding out what books the top rated author wrote - Calvin And Hobbes seems                                                           to be the predominant book, which is a popular American strip
 ```
 
 
+--- Q2. The top 5 rated books?
+
+```{r}
+books %>% 
+  filter(ratings_count >= avg_rating_count ) %>% 
+  slice_max(average_rating, n = 5 )
+# again, had to use ratings higher than the avg rating for fairness
+# 3 Calvin And Hobbes with 2 Harry Potter books
+```
+
+--- Q3. Longest book and shortest book?
+```{r}
+books %>%
+  slice_max(num_pages, n = 5) %>% 
+  summarise(title,num_pages)
+# a book of books is the longest, therefore changed to show top 5
+# The Second World War shows second longest, as a single book this is a fairer                                                            answer
+
+books %>%
+  slice_min(num_pages, n = 5) %>% 
+  summarise(title,num_pages)
+# after investigating more of the data, it appears inaccurate enough that you                                                             cannot deduce the shortest book without using external resources
+```
+
+
+
+
+--- Q4. How many books are written in each language code?
+```{r}
+books %>% 
+  group_by(language_code) %>% 
+  summarise(count = n())
+# this showed that there are multiple types of english, so wanted to group them                                                           together under one title
+```
+
+Used this code from a previous example of editing the data to help with the below code.
+
+  students_big %>% 
+  select(ageyears) %>% 
+  mutate(
+    age_divisible = case_when(
+      ageyears %% 2 == 0 ~ "Even",
+      ageyears %% 3 == 0 ~ "Divisible by 3",
+      ageyears %% 5 == 0 ~ "Divisible by 5",
+      TRUE               ~ "Other number"
+    )
+  )
+
+```{r}
+books %>% 
+    mutate(
+    language_code = case_when(
+    language_code == "en-CA" ~ "eng",
+    language_code == "en-GB" ~ "eng",
+    language_code == "en-US" ~ "eng",
+    language_code == "enm"   ~ "eng",
+      TRUE                   ~ language_code
+    )
+  ) %>% 
+  group_by(language_code) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+--- Q5. The publisher with the highest average ratings?
+```{r}
+books %>% 
+  filter(ratings_count >= avg_rating_count) %>% 
+  group_by(publisher) %>% 
+  summarise(avg_rating = mean(average_rating)) %>% 
+  slice_max(avg_rating)
+# Andrews McMeel Publishing is the publisher of Calvin And Hobbes - written by                                                            the highest rated author!
+```
