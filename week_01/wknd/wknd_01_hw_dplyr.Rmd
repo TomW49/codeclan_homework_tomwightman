@@ -141,3 +141,32 @@ books %>%
   slice_max(avg_rating)
 # Andrews McMeel Publishing is the publisher of Calvin And Hobbes - written by                                                            the highest rated author!
 ```
+
+
+--- (Neringa's q) Q6. Find 10 publishers with the highest amount of books, and for each of them
+find their highest rated book?
+```{r}
+highest_number_books <- books %>% 
+  group_by(publisher) %>% 
+  summarise(number_of_books = n()) %>% 
+  slice_max(number_of_books, n = 10)
+
+highest_number_books %>% 
+  left_join(books, by = "publisher") %>% 
+  group_by(publisher) %>% 
+  slice_max(average_rating, n = 1)
+```
+
+
+
+
+--- (Howard's q) 
+```{r}
+books %>% 
+        group_by(publisher) %>%               
+        slice_max(ratings_count, n = 1, with_ties = FALSE) %>%
+        select (publisher,ratings_count) %>%
+        arrange(desc(ratings_count))  %>%
+        head(10)
+```
+
