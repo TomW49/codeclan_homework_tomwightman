@@ -101,21 +101,6 @@ hat_obs%>%
   slice_max(hat_type == "beret")
 ```
 
---- (Neringa's q) Q6. Find 10 publishers with the highest amount of books, and for each of them
-find their highest rated book?
-```{r}
-highest_number_books <- books %>% 
-  group_by(publisher) %>% 
-  summarise(number_of_books = n()) %>% 
-  slice_max(number_of_books, n = 10)
-
-highest_number_books %>% 
-  left_join(books, by = "publisher") %>% 
-  group_by(publisher) %>% 
-  slice_max(average_rating, n = 1)
-```
-
-
 
 # Extension
 
@@ -135,5 +120,13 @@ Read in `exam_scores` and transform it into long format with two new columns `ex
 
 ```{r}
 exam_scores <- read_csv("data/exam_scores.csv") 
+
+exam_scores %>%
+    pivot_longer(-1, 
+               names_to = "exam_question", 
+               values_to = "score") %>% 
+  separate(exam_question, c("exam", "exam_question"), sep = "_" ) %>% 
+  select(id, exam_question, score)
+  
 ```
 
