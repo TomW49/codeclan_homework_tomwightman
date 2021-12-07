@@ -58,9 +58,9 @@ Join the data containing fraud details with transaction details so all rows of b
 fraud_base
 transaction_base
 
-inner_join(transaction_base, fraud_base, by = "transaction_id")
+full_join(transaction_base, fraud_base, by = "transaction_id")
 ```
-Row number tells me there are only 109 fraud cases linked to held transaction details
+Row number tells me there are only 109 fraud cases linked to held transaction details, check with na's
 
 ---**Question 4**
 
@@ -70,7 +70,7 @@ Join the data containing card details with transaction details so rows from the 
 card_base
 transaction_base
 
-left_join(card_base, transaction_base, by = c("card_number" = "credit_card_id"))
+semi_join(card_base, transaction_base, by = c("card_number" = "credit_card_id"))
 ```
 
 
@@ -96,9 +96,10 @@ hat_obs%>%
   unite(date, 
         c(day, month, year), 
         sep = "/") %>% 
+  filter(hat_type == "beret") %>% 
   group_by(date) %>% 
-  summarise(hat_type = n()) %>% 
-  slice_max(hat_type == "beret")
+  summarise(total = sum(observation_count)) %>% 
+  slice_max(total)
 ```
 
 
@@ -106,15 +107,29 @@ hat_obs%>%
 
 ## Joins
 
-**Question 1**
+---**Question 1**
 
 Can you join all 4 datasets together so that you're left with a dataset that looks like below with **109 rows** and **12 columns**?
+
+```{r}
+card_base        
+cust_base
+fraud_base
+transaction_base
+
+card_base %>% 
+  inner_join(cust_base, by = "cust_id") %>% 
+  inner_join(transaction_base, by = c("card_number" = "credit_card_id")) %>% 
+  inner_join(fraud_base, by = "transaction_id" )
+
+```
+
 
 ![](images/all_joined.png)
 
 ## `tidyr`
 
-**Question 2**
+---**Question 2**
 
 Read in `exam_scores` and transform it into long format with two new columns `exam_question` and `score`. Then, using `separate` and `select`, remove superfluous information from the values in `exam_question`
 
@@ -122,11 +137,10 @@ Read in `exam_scores` and transform it into long format with two new columns `ex
 exam_scores <- read_csv("data/exam_scores.csv") 
 
 exam_scores %>%
-    pivot_longer(-1, 
+    pivot_longer(starts_with("exam"), 
                names_to = "exam_question", 
                values_to = "score") %>% 
-  separate(exam_question, c("exam", "exam_question"), sep = "_" ) %>% 
-  select(id, exam_question, score)
-  
+  separate(exam_question, c("exam", "exam_question"), sep = "Q" ) %>% 
+  select(-exam)
 ```
 
