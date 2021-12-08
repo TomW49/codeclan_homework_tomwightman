@@ -76,6 +76,15 @@ code_clan_tweets %>%
   summarise(num_of_likes = sum(favorite_count))
 ```
 
+```{r}
+#instructor answer
+code_clan_tweets %>%
+  mutate(media_type = coalesce(media_type, "text")) %>%
+  group_by(media_type) %>%
+  summarise(favourite_count_total = sum(favorite_count)) %>%
+  arrange(desc(favourite_count_total))
+```
+
 
 <br>
 
@@ -86,6 +95,19 @@ Find the mean number of characters that a CodeClan tweet contains.  You can eith
 ```{r}
 code_clan_tweets %>%
   summarise(avg_tweet_length = mean(display_text_width))
+```
+
+```{r}
+code_clan_tweets %>%
+  summarise(avg_tweet_length = mean(display_text_width))
+```
+```{r, warning = FALSE}
+# alternative way of testing the str_length function
+code_clan_tweets_text <- code_clan_tweets %>%
+  mutate(count_str_length = str_length(text)) %>%
+  select(count_str_length, display_text_width)
+
+code_clan_tweets_text
 ```
 
 ---**Question 6.**  
@@ -107,16 +129,24 @@ cc_tweet_data <- full_join(code_clan_info, code_clan_tweets, by = "tweet_id")
 From your new joined data, create a new tibble `codeclan_hashtags` containing only the `tweet_id` and convert the hashtags into lowercase for analysis. Keep only those tweets with hashtags.
 
 ```{r}
-cc_tweet_data %>%
+codeclan_hashtags <- cc_tweet_data %>%
   filter(hashtags != is.na(hashtags)) %>%
+  mutate(hashtags = str_to_lower(hashtags)) %>% 
   group_by(tweet_id) %>%
-    str_to_lower(hashtags)
-  
-  
-  
-
+  summarise(hashtags)
+codeclan_hashtags
 ```
 
+```{r}
+# instructors answers: create a variable which has all the hashtags in lowercase for analysis
+codeclan_hashtags_inst <- codeclan_hashtags%>% 
+  select(tweet_id, hashtags) %>%
+  mutate(lowcase_hashtag = str_to_lower(hashtags)) %>%
+  select(-hashtags) %>%
+  drop_na(lowcase_hashtag)
+
+codeclan_hashtags_inst
+```
 
 <br>
 
@@ -124,28 +154,61 @@ cc_tweet_data %>%
 
 <br>
 
----**Question 8.**  
+---**Question 8.**
 Some tweets have more than one hashtag, denoted by the `c(` symbols at the start of the string. Use the `str_sub()` and `str_detect()` functions and your `codeclan_hashtags` tibble from above to find all the cases in which the hashtag string begins with characters`c(`.
 <details>
 <summary>**Hint**</summary>
 Try a regex pattern `"c\\("`. The double backslash is necessary in R to mark a backslash as itself being escaped. 
 </details>
 
+<details>
+<summary>**Answer**</summary>
+```{r}
+# 8 : use the str_sub function to get the first 2 letters of each tweet
+hashtags_multiple <- codeclan_hashtags %>% 
+  mutate(first_letters = str_sub(lowcase_hashtag, 1, 2)) %>%
+  filter(str_detect(first_letters, "c\\("))
+
+hashtags_multiple
+```
+</details>
+
 <br>
 
----**Question 9.**  
+---**Question 9.**
 Use the `str_detect()` function to find all tweets with `text` that mentions "Edinburgh", and count how many such tweets there are. 
 <details>
 <summary>**Hint**</summary>
 You may need to make sure your tweets are all the same case before searching.
 </details>
 
+<details>
+<summary>**Answer**</summary>
+```{r}
+# 9: Use the str_detect() function to find all cases where a tweet text mentions edinburgh, and count in how many tweets it appears
+codeclan_tweets %>%
+  mutate(lowcase_tweets = str_to_lower(text)) %>%
+  filter(str_detect(lowcase_tweets, "edinburgh")) %>%
+  summarise(count = n())
+```
+</details>
+
 <br>
 
----**Question 10.**  
+---**Question 10.**
 Use `str_extract_all()` with a regular expression to find out which Twitter users CodeClan have been tweeting. 
 <details>
 <summary>**Hint**</summary>
 Think about all the different characters which could be in a Twitter username, do a bit of online research
 </details>
 
+<details>
+<summary>**Answer**</summary>
+```{r}
+# 10: use str_extract_all and regex to find usernames
+user_pattern <- "@[a-zA-Z0-9_]+"
+tweets <- codeclan_tweets %>% 
+  select(text)
+head(str_extract_all(tweets$text, user_pattern))
+```
+</details>
