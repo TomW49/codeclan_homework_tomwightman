@@ -73,7 +73,7 @@ Count the total number of likes (i.e. total of `favorite_count`), split by `medi
 ```{r}
 code_clan_tweets %>%
   group_by(media_type) %>% 
-  summarise(nuo_of_likes = sum(favorite_count))
+  summarise(num_of_likes = sum(favorite_count))
 ```
 
 
@@ -108,7 +108,13 @@ From your new joined data, create a new tibble `codeclan_hashtags` containing on
 
 ```{r}
 cc_tweet_data %>%
-  filter
+  filter(hashtags != is.na(hashtags)) %>%
+  group_by(tweet_id) %>%
+    str_to_lower(hashtags)
+  
+  
+  
+
 ```
 
 
