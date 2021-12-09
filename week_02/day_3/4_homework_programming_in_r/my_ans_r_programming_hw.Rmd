@@ -19,12 +19,12 @@ Find the weather forecast for the next three days online. Create a list of lists
 
 ```{r}
 weather_forecast <- list(
-  "Thursday" = list(temp_celicious = "7", chance_of_rain_percent = "91", wind_speed_mph = "11"),
-  "Friday"   = list(temp_celicious = "6", chance_of_rain_percent = "10", wind_speed_mph = "15"),
-  "Saturday" = list(temp_celicious = "8", chance_of_rain_percent = "80", wind_speed_mph = "11")
+  "Thursday" = list(temp_celicious = 7, chance_of_rain_percent = 91, wind_speed_mph = 11),
+  "Friday"   = list(temp_celicious = 6, chance_of_rain_percent = 10, wind_speed_mph = 15),
+  "Saturday" = list(temp_celicious = 8, chance_of_rain_percent = 80, wind_speed_mph = 11)
 )
 weather_forecast
-```
+``
 
 <br>
 
@@ -87,10 +87,10 @@ fortnight_weather_forecast[,c(1,3,5)]
 Write a function that pre-appends "The answer is: " to any character input, while for numeric input, it either just returns the number for numbers less than 10, or divides the number by 10 for numbers greater than 10. For anything else return "Invalid input".
 
 ```{r}
+
+# my answer
 task_function_5 <- function(x){
-  # think error here has something to do with function call?
-  # have also used is.character call but same error
-  if (x == [(?i)a-z]){
+  if (is.character(x)) {
     if x <10{
       if x > 10{
         print("The answer is: " x)  
@@ -100,6 +100,23 @@ task_function_5 <- function(x){
     print(x / 10)
   }
 }  
+
+# instructor answer
+answer_or_divide <- function(x) {
+  if (is.character(x)) {
+    return(paste("The answer is: ", x))
+  }
+
+  if (is.numeric(x)) {
+    if (x < 10) {
+      return(x)
+    } else {
+      return(x / 10)
+    }
+  }
+
+  return("Invalid input")
+}
 ```
 
 <br>
@@ -112,9 +129,11 @@ Write a function which checks if two vectors have the same elements.
 * If they don't have the same elements, return "Different".
 
 ```{r}
-task_function_6 <- function(x = c(), y = c()){
-  if (x == y){
-    if (sort(x == y)){
+# my answer
+
+task_function_6 <- function(x = c(), y = c()){ # no need to specifcy that x + y are vecotrs
+  if (x == y){ # have to use all() function to get a single TRUE\FALSE when the == checks if each vector is the same 
+    if (sort(x == y)){ # when using sort() need to sort each variable individually
       print("Exactly the same")
     }
   print("The same")
@@ -123,7 +142,18 @@ task_function_6 <- function(x = c(), y = c()){
   }
 }
 
-task_function_6(2,2)
+# instructor answer
+is_same_vector <- function(vector_1, vector_2) {
+  if (all(vector_1 == vector_2)) {
+    return("Exactly the same")
+  }
+
+  if (all(sort(vector_1) == sort(vector_2))) {
+    return("The same")
+  }
+
+  return("Different")
+}
 ```
 `
 
@@ -153,6 +183,17 @@ for(row_index in 1:num_rows){
 }
 
 product_matrix
+
+# create empty matrix
+mult_table <- matrix(nrow = 12, ncol = 12)
+
+for (outer_factor in 1:12){
+  for (inner_factor in 1:12){
+    mult_table[outer_factor, inner_factor] = outer_factor * inner_factor
+  }
+}
+
+mult_table
 ```
 
 
@@ -172,4 +213,31 @@ You may want to use the function `cat()`. This is similar to `print()`, but prin
 4 | ****
 5 | **
 ```
+
+```{r}
+make_histogram <- function(x){
+  
+  distinct <- sort(unique(x))
+  
+  for (i in distinct){
+    
+    count <- sum(x == i)
+    
+    cat(i)
+    cat(" | ")
+    cat(rep("*", count))
+    cat("\n")
+    
+  }
+  
+}
+```
+
+```{r}
+numbers <- sample(1:5, size = 50, replace = TRUE) 
+numbers
+
+make_histogram(numbers)
+```
+
 
