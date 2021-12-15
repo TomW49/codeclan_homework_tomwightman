@@ -151,4 +151,4 @@ HAVING count(e.id) * cast(t.charge_cost AS int) > 5000
 
 SELECT 
     count (DISTINCT(employee_id)) AS num_employees_on_committees
-FROM employees_committees ec 
+FROM employees_committees 
