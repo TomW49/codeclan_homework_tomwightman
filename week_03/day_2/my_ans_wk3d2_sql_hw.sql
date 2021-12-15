@@ -85,9 +85,10 @@ SELECT
     t.id,
     t."name",
     count (e.id)
-FROM employees AS e INNER JOIN teams AS t 
+FROM employees AS e 
+INNER JOIN teams AS t 
 ON e.team_id = t.id
-GROUP BY t."name", t.id 
+GROUP BY t.id 
 ORDER BY t.id ASC 
 
     -- (b). The total_day_charge of a team is defined as the charge_cost of the team multiplied by the number of 
@@ -108,6 +109,15 @@ FROM
 GROUP BY t."name", t.id 
 ORDER BY t.id ASC) t 
 
+-- instructor answer
+SELECT 
+    t.name,
+    count(e.id) * cast(t.charge_cost AS int) AS total_day_charfe
+FROM employees AS e
+INNER JOIN teams AS t 
+ON e.team_id = t.id
+GROUP BY t.id
+
     -- (c). How would you amend your query from above to show only those teams with a total_day_charge greater than 5000? 
 SELECT 
     t.id,
@@ -126,3 +136,19 @@ GROUP BY t."name", t.id
 ORDER BY t.id ASC) t 
 WHERE t.total_day_charge > 5000
 
+--  instructor answer
+SELECT 
+    t.name,
+    count(e.id) * cast(t.charge_cost AS int) AS total_day_charfe
+FROM employees AS e
+INNER JOIN teams AS t 
+ON e.team_id = t.id
+GROUP BY t.id
+HAVING count(e.id) * cast(t.charge_cost AS int) > 5000
+
+-- EXT -- 
+-- Q5. 
+
+SELECT 
+    count (DISTINCT(employee_id)) AS num_employees_on_committees
+FROM employees_committees ec 
