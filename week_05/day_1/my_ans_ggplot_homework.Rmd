@@ -16,6 +16,35 @@ competitors <- clean_names(qb_competitors)
 device_data <- clean_names(qb_device_data)
 ```
 
+
+## 2.2 Part 2
+
+### Question 1.
+Take the plots that you produced in part one and now polish them by:
+
+- Adding appropriate labels
+- Changing the scales and coordinates when appropriate.
+- Applying a unified theme, which is described below:
+- Graphs should have white backgrounds, and use colour sparingly.
+- There should be faint grid lines.
+- Font sizes should be ~12pt although titles should be slightly larger and axis labels can be slightly smaller.
+- All plots should use colours from the following company colour scheme.
+
+```{r}
+# creating own theme
+theme_qb <- 
+  theme(
+    text = element_text(size = 12),
+    title = element_text(size = 14),
+    axis.text = element_text(size = 10),
+    panel.background = element_rect(fill = "white"),
+    panel.grid = element_line(colour = "grey90", linetype = "dashed")
+  )
+
+# creating colour scheme
+col_scheme <- c("#E89FE9", "#50434F", "#B6A7B5", "#F9A472", "#BD7040")
+```
+
 # 2.1 Part 1
 
 ### Question 1.
@@ -37,7 +66,7 @@ ggplot(revenue,
   theme_minimal() +
   labs(
     title = "Revenue Streams",
-    subtitle = "2018-2019",
+    subtitle = "2018 - 2019",
     x = "\nProduct",
     y = "Revenue, Currency\n",
     fill = "Year"
@@ -46,6 +75,17 @@ ggplot(revenue,
   scale_fill_manual(
     values = col_scheme
     )
+
+# cc answer
+ggplot(qb_revenue_breakdown) +
+  aes(x = Year, y = Revenue, fill = Product) +
+  geom_col() +
+  scale_fill_manual(values = col_scheme) +
+  ggtitle(
+    "Breakdown of QikBit Revenue by Product Line",
+    subtitle =  "2018 and 2019"
+  ) +
+  theme_qb
 ```
 
 ### Question 2.
@@ -76,7 +116,15 @@ ggplot(aes(x = date,
   theme_minimal()+
    theme(axis.text = element_text(size = 12))
   
-  
+# cc answer
+kwikbit_sales <- subset(qb_monthly_sales, Cashflow == "Kwikbit Unit 1 Sales")
+
+ggplot(kwikbit_sales) +
+  aes(x = Date, y = Amount, group = Cashflow) +
+  geom_line(size = 2, colour = col_scheme[3]) +
+  theme_qb +
+  scale_y_continuous("Sales", labels = scales::dollar_format(prefix = "£")) +
+  ggtitle("Sales of Kwikbit Unit1", subtitle = "1 Aug 2018 to 1 July 2019")
 ```
 
 
@@ -91,6 +139,13 @@ ggplot(aes(x = date,
            fill = cashflow)) +
   geom_line()+
   geom_point(aes(fill = cashflow))
+
+# cc answer
+monthly_sales %>% 
+  filter(cashflow != "Kwikbit Unit 1 Sales") %>% 
+ggplot(
+  aes(x = date, y = amount, colour = cashflow)) +
+  geom_line() 
 ```
 
 ### Question 3.2
@@ -105,6 +160,17 @@ ggplot(aes(x = date,
         values = col_scheme) +
   geom_point()+
   theme_minimal()
+
+# cc answer
+revenue_and_costs <- subset(qb_monthly_sales, Cashflow != "Kwikbit Unit 1 Sales")
+
+ggplot(revenue_and_costs) +
+  aes(x = Date, y = Amount, colour = Cashflow, group = Cashflow) +
+  geom_line(size = 2) +
+  theme_qb +
+  scale_colour_manual(values = col_scheme) +
+  scale_y_continuous("Sales", labels = scales::dollar_format(prefix = "£")) +
+  ggtitle("QikBit - Revenue and Costs", subtitle = "1 Aug 2018 to 1 July 2019")
 ```
 
 
@@ -116,6 +182,12 @@ ggplot(competitors,
        aes(x = year,
            y = revenue,
            fill = company)) +
+  geom_area()
+
+# cc answer
+options(scipen = 999) # this removes scientific numbering
+ggplot(competitors) +
+  aes(x = year, y = revenue, fill = company) +
   geom_area()
 ```
 
@@ -136,6 +208,18 @@ ggplot(competitors,
   )+
   scale_y_continuous(labels = scales::comma) +
   theme_minimal()
+
+# cc answer
+ggplot(qb_competitors) +
+  aes(x = Year, y = Revenue, fill = Company) +
+  geom_area() +
+  scale_y_continuous(labels = scales::dollar) +
+  theme_qb +
+  scale_fill_manual(values = col_scheme) +
+  ggtitle(
+    "Revenue in the Fitness Tracker Market by Company",
+    subtitle = "2015 - 2019"
+  )
 ```
 
 ### Question 5.
@@ -167,6 +251,19 @@ ggplot(competitors,
         values = col_scheme) +
   scale_y_continuous(labels = scales::comma) +
   theme_minimal()
+
+# cc answer
+ggplot(qb_competitors) +
+  aes(x = Year, y = Revenue, colour = Company) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::dollar) +
+  theme_qb +
+  scale_colour_manual(values = col_scheme) +
+  ggtitle(
+    "Revenue in the Fitness Tracker Market by Company",
+    subtitle = "2015 - 2019"
+  )
 ```
 
 
@@ -175,49 +272,32 @@ Now the company wants to compare the number of steps that their device counts vs
 ```{r}
 device_data %>% 
   mutate(mins = hours*60 + mins) %>% 
+  
 ggplot(aes(x = mins,
            y = counts))+
   geom_line()+
   theme(axis.text = element_text(size = 12))+
   scale_fill_manual(values = col_scheme)+
-  facet_wrap(~device)+
+  facet_wrap(id ~ device)+
   theme_minimal()
-```
 
-## 2.2 Part 2
+# cc answers
+device_data %>%  
+mutate(device_data, decimal_hour = hours + (mins/60)) %>% 
 
-### Question 1.
-Take the plots that you produced in part one and now polish them by:
+ggplot(aes(x = decimal_hour, y = counts)) +
+  geom_line() + 
+  facet_grid(id ~ device)
 
-  Adding appropriate labels
-  Changing the scales and coordinates when appropriate.
-  Applying a unified theme, which is described below:
-  Graphs should have white backgrounds, and use colour sparingly.
-  There should be faint grid lines.
-  Font sizes should be ~12pt although titles should be slightly larger and axis labels can be slightly smaller.
-    All plots should use colours from the following company colour scheme.
-
-```{r}
-col_scheme <- c("#E89FE9", "#50434F", "#B6A7B5", "#F9A472", "#BD7040")
-```
-
-### Question 1.2
-Take the data in the dataset qb_revenue_breakdown and make a stacked bar chart showing the sources of revenue across the two years in the dataset.
-
-```{r}
-ggplot(revenue,
-       aes(x = product, y = revenue,
-           fill = year)) +
-  geom_col() +
-  theme_minimal() +
-  labs(
-    title = "Revenue Streams",
-    subtitle = "2018-2019",
-    x = "\nProduct",
-    y = "Revenue, Currency\n",
-    fill = "Year"
-  )+
-  theme(axis.text = element_text(size = 12))+
-  scale_fill_manual(values = col_scheme
-  )
+# cc answer 6.2
+device_data %>%  
+mutate(device_data, decimal_hour = hours + (mins/60)) %>% 
+ggplot(aes(x = decimal_hour, y = counts, colour = device)) +
+  geom_line(show.legend = FALSE) + 
+  scale_x_continuous("Time (hours)") +
+  scale_y_continuous("Steps") +
+  facet_grid(id ~ device) +
+  scale_colour_manual(values = col_scheme) +
+  theme_qb +
+  ggtitle("Comparison between KwikBit Unit1 and Competitors for 5 individuals")
 ```
