@@ -122,11 +122,12 @@ ggplot(aes(x = back_problems, fill = back_problems)) +
           subtitle = "Proportion out of 100 students") +
   xlab("") +
   ylab("Number of students\n") +
+  scale_y_continuous(breaks = NULL) +
   labs(fill = "Back problems")+
-  scale_fill_manual(values = c('grey40', 'red'),
+  scale_fill_manual(values = c('grey70', 'darkred'),
                     guide = "none") +
-  geom_text(aes(label = ??????),
-            colour = "black", size = 2, hjust = 1) +
+  geom_text(aes(label = ..count..), 
+            size = 8, stat = "count", vjust = 1.5, colour = "black") +
   theme
 ```
 
@@ -134,8 +135,8 @@ ggplot(aes(x = back_problems, fill = back_problems)) +
 
 Is this proportion different between men and women?
 
-A. 36/68 that reported no back problems are male, which is 52.94% - this shows no experience of back problems between genders is around the same. 
-   8/32 that reported back problems are male, equating to 25%. Out of those experiencing back problems there is a significantly higher number of females in    proportion, in fact there a re 3 times more females with back pain than males.
+A. 37/68 that reported no back problems are male, which is 54.41% - this shows no experience of back problems between genders is around the same. 
+   8/32 that reported back problems are male, equating to 25%. Out of those experiencing back problems there is a significantly higher number of females in    proportion, in fact there are 3 times more females with back pain than males.
 ```{r}
 backpack %>% 
   mutate(back_problems = if_else(back_problems == 1,
@@ -145,13 +146,13 @@ ggplot(aes(x = back_problems, fill = sex)) +
   geom_bar()+
   ggtitle("\nBack problems in students",
           subtitle = "Proportion out of 100 students using sex as a factor") +
+  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "black") +
   xlab("") +
   ylab("Number of students\n") +
   labs(fill = "Back problems") +
-  scale_fill_manual(values = c('red', 'blue')) +
   theme
 
-36*100/68
+37*100/68
 8*100/32
 ```
 
@@ -175,7 +176,6 @@ ggplot(aes(x = body_weight, y = backpack_weight, fill = sex)) +
   xlab("\nBodyweight, lbs") +
   ylab("Weight of backpack, lbs\n") +
   labs(fill = "Sex") +
-  scale_fill_manual(values = c('red', 'blue')) +
   theme
 ```
 
