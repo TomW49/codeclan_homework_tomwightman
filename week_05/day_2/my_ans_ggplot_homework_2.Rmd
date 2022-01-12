@@ -117,13 +117,13 @@ backpack %>%
                                  "Yes",
                                  "No")) %>% 
 ggplot(aes(x = back_problems, fill = back_problems)) +
-  geom_bar()+
+  geom_bar() +
   ggtitle("\nBack problems in students",
           subtitle = "Proportion out of 100 students") +
   xlab("") +
   ylab("Number of students\n") +
   scale_y_continuous(breaks = NULL) +
-  labs(fill = "Back problems")+
+  labs(fill = "Back problems") +
   scale_fill_manual(values = c('grey70', 'darkred'),
                     guide = "none") +
   geom_text(aes(label = ..count..), 
@@ -143,7 +143,7 @@ backpack %>%
                                  "Yes",
                                  "No")) %>% 
 ggplot(aes(x = back_problems, fill = sex)) +
-  geom_bar()+
+  geom_bar() +
   ggtitle("\nBack problems in students",
           subtitle = "Proportion out of 100 students using sex as a factor") +
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "black") +
