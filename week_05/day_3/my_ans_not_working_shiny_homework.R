@@ -6,8 +6,10 @@ library(shinythemes)
 # call in data
 whisky <- CodeClanData::whisky
 
-# creates list of regions and then distilleries based on input region 
+# creates list of regions 
 region <- unique(whisky$Region)
+
+# creates reactive list of distilleries based on input region 
 distillery <- whisky %>% 
   filter(Region == region_input) %>%
   select(2) %>% 
@@ -62,7 +64,7 @@ server <- function(input, output, session) {
       )
   })
   observe({
-    updateSelectInput  (session, "distilery_input", choices = outVar()
+    updateSelectInput(session, "distilery_input", choices = outVar()
     )})
 }
 
