@@ -1,0 +1,158 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+library(gtools)
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+titanic <- read_csv("data/titanic.csv")
+```
+
+## 1.1 Titanic
+
+```{r}
+# creating crew column identifying status of passengers/crew
+titanic <- titanic %>%
+  mutate(
+    crew = case_when(
+      str_detect(class, "crew")  ~ TRUE,
+      str_detect(class, "staff") ~ TRUE,
+      TRUE ~ FALSE
+    )
+  )
+```
+
+```{r}
+# getting count for crew and passengers
+titanic_crew <- titanic %>% 
+  filter(crew == TRUE)
+
+titanic_passenger <- titanic %>% 
+  filter(crew == FALSE)
+```
+
+A: 0.2370787 / 23.71% / 1 in 4.218009 survived
+```{r}
+# dividing number of crew survived by total number of crew
+prob_crew_survive <- titanic_crew %>% 
+  filter(crew == TRUE, survived == "yes") %>% 
+  summarise(prob_crew_survive = n() / nrow(titanic_crew))
+
+prob_crew_survive
+
+# number of survivors
+0.2370787 * 890
+
+# simplifying fraction
+890/211
+```
+
+A: 0.3796507	/ 37.97% / 1 in 2.634 passengers survived.
+```{r}
+# dividing number of passengers survived by total number of passengers
+prob_passenger_survive <- titanic_passenger %>% 
+  filter(crew == FALSE, survived == "yes") %>% 
+  summarise(prob_passenger_survive = n() / nrow(titanic_passenger))
+
+prob_passenger_survive
+
+# number of survivors
+0.3796507	 * 1317
+
+# simplifying fraction
+1317/500
+```
+
+## 1.2 Probability Consolidation Questions
+
+### Question 1.
+If I roll a six-sided dice once, what is the probability of getting a number less than 5?
+
+- A: 0.6666667 / 66% / 2 in 3 rolls
+```{r}
+# rolling one dice and exploring potential outcomes
+one_dice <- rolldie(1) 
+
+# filtering above results to specifically less than 5
+dice_less_five <- one_dice %>% 
+  filter(X1 < 5)
+
+# dividing number of results less than 5 with number of total unfiltered results
+prob_less_five <- nrow(dice_less_five) / nrow(one_dice)
+prob_less_five
+```
+
+### Question 2.
+How many outcomes are there in the sample space of an experiment in which we toss three dice?
+
+A: 0.01851852 / 1.8% / 19 in 64 rolls
+```{r}
+# rolling three die and exploring potential outcomes
+three_dice <- rolldie(3) 
+
+# filtering above results to specifically less than 5
+three_die_less_five <- three_dice %>% 
+  filter(X1 < 5, X2 <5, X3 <5)
+
+# dividing number of results less than 5 with number of total unfiltered results
+three_die_prob_less_five <- nrow(three_die_less_five) / nrow(three_dice)
+three_die_prob_less_five
+
+# gives how many rolls out of 64 to achieve less than 5
+0.2962963 * 64
+
+```
+
+### Question 3.
+In an experiment where we roll four dice:
+
+- how many outcomes are in the event where the total of the four dice equals 5, 6 or 7)?
+A: 34 Outcomes
+
+- what is the probability of this event?
+A: 0.02623457 / 2.6% / 34 in 1296 rolls / 1 in 38.11765 rolls
+
+- what assumptions do we apply in answering part ii?
+A: ????
+
+
+```{r}
+# rolling three die and exploring potential outcomes
+four_die <- rolldie(4) 
+
+# filtering above results and creating new col with count of die rolls equal to desired outcomes
+four_die_outcome <- four_die %>% 
+  mutate(total = rowSums(.)) %>% 
+  filter(total %in% c(5,6,7))
+
+# dividing number of results of intended outcomes with number of total unfiltered results
+prob_four_die_outcome <- nrow(four_die_outcome) / nrow(four_die)
+prob_four_die_outcome
+
+# gives how many rolls out of 1296 to achieve intended outcomes
+0.02623457* nrow(four_die)
+
+# simplifying fraction
+nrow(four_die)/34
+
+```
+
+### Question 4.
+Five chairs are placed in a row in a room, along with five people of differing height. The people sit down randomly on the chairs. What is the probability that they sit in order of decreasing height, left to right?
+
+A: 0.02 / 2% / 1 in 50 attempts
+```{r}
+# n(total) = n1 x n2 x n3.... x nn
+outcomes <- 5  * 5 * 2
+outcomes
+
+prob <- 1/outcomes
+prob
+```
+
