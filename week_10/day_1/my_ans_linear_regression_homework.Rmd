@@ -41,7 +41,6 @@ project <- read_csv("data/project_management.csv") %>%
 ```{r}
 project %>% 
   ggplot() +
-  aes(x = x1) +
   geom_point() +
   aes(estimated_length, actual_length)
 ```
@@ -51,19 +50,34 @@ project %>%
 
 * Calculate the correlation coefficient of `estimated_length` and `actual_length` and interpret the value you obtain.
 
-<br>
+```{r}
+# strong positive correlation
+project %>%
+  summarise(corr_coeff = cor(estimated_length, actual_length))
+```
+
 
 * Perform a simple linear regression using `actual_length` as the dependent variable, and `estimated_length` as the independent variable. Save the model object to a variable. 
 
-<br>
+```{r}
+model <- lm(actual_length ~ estimated_length, data = project)
+```
+
 
 * Interpret the regression coefficient of `estimated_length` (i.e. slope, gradient) you obtain from the model. How do you interpret the $r^2$ value reported by the model?
 
 <br>
+```{r}
+summary(model)
+```
 
 * Is the relationship statistically significant? Remember, to assess this you need to check the $p$-value of the regression coefficient (or slope/gradient). But you should first check the regression diagnostic plots to see if the $p$-value will be reliable (don't worry about any outlier points you see in the diagnostic plots, we'll return to them in the extension).
 
 <hr>
+```{r}
+library(ggfortify)
+autoplot(model)
+```
 
 # Extension - Residuals vs Leverage
 
