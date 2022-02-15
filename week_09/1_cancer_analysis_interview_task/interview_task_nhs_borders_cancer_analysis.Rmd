@@ -1,0 +1,215 @@
+---
+title: "NHS Borders - Cancer Analysis"
+author: "Tom Wightman, 09/02/22"
+output: html_document
+
+---
+<style type="text/css">
+  body{
+  font-family: futiger,
+  font-size: 12pt;
+}
+</style>
+
+```{css echo=FALSE}
+.title {color: black; font-family: frutiger }
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+Data taken from open source at Public Health Scotland Annual Cancer Incidence, [Indcidence By Healthboard](https://www.opendata.nhs.scot/dataset/annual-cancer-incidence/resource/3aef16b7-8af6-4ce0-a90b-8a29d6870014). Being open source the data has already been vetted and anonymised making deeper analysis more challenging. There appears to be little bias with the data, and there are no other legal or ethical concerns. 
+
+>In order to help inform the planning for provision of cancer treatment services in NHS Borders, we would like to gain better understanding of the incidence of cancer in NHS Borders.
+
+```{r, include=FALSE}
+library(tidyverse)
+library(janitor)
+library(ggpubr)
+```
+
+```{r, include=FALSE}
+nhs_cancer <- read_csv("example_answer/opendata_inc9317_hb2018.csv") %>% 
+  clean_names()
+
+borders_cancer <- nhs_cancer %>% 
+    filter(hbr2014 == "S08000016")
+
+nhs_theme <- function(){
+  theme(panel.background = element_rect(fill = "white"),
+        legend.key = element_rect(fill = "grey15"),
+        panel.border = element_blank(),
+        panel.grid.major = element_line(color = "grey25"),
+        panel.grid.minor = element_blank(),
+        legend.position = "none",
+        axis.title = element_text(face = "bold"),
+        plot.title = element_text(face = "bold") +
+          theme_minimal()
+  )
+}
+
+nhs_colours <- as_tibble(c("#006b54", # dark green
+                       "#009e49", # green
+                       "#5bbf21", # light green 
+                       "#d81e05", # red
+                       "#00adc6", # aqua blue
+                       "#00aa9e", # aqua green
+                       "#f7e214", # yellow
+                       "#0091c9", # light blue
+                       "#c466ff", # pink
+                       "#003893", # dark blue
+                       "#56008c", # purple
+                       "#a00054", # dark pink
+                       "#d81e05", # orange
+                       "#931638"))# dark red
+```
+
+## Most common cancer types within NHS Borders
+
+```{r, message=FALSE}
+# from 2007 onward 
+top_10_cancers_07_17 <- borders_cancer %>%
+  filter(cancer_site != "All cancer types",
+         year > 2007,
+         sex != "All") %>%
+  group_by(cancer_site) %>% 
+  summarise(incidences = sum(incidences_all_ages)) %>% 
+  slice_max(incidences, n = 10) %>% 
+  arrange(desc(incidences)) %>% 
+  pull(cancer_site) 
+
+borders_cancer %>%
+  mutate(cancer_site = as.factor(cancer_site)) %>% 
+  filter(cancer_site != "All cancer types",
+         year > 2007,
+         sex != "All") %>%
+  group_by(cancer_site) %>% 
+  summarise(incidences = sum(incidences_all_ages)) %>% 
+  slice_max(incidences, n = 10) %>% 
+  arrange(desc(incidences)) %>% 
+  ggplot() +
+  aes(y = reorder(cancer_site, incidences), x = incidences) +
+  geom_col() +
+  xlab("Number of Incidences between 2007 and 2017") +
+  geom_text(
+    aes(label = incidences), 
+    hjust = 1.1,
+    colour = "white") +
+  nhs_theme() +
+  theme(legend.position = "none",
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.y  = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+  )
+```
+
+
+Content: Taken from 10 years worth of data, this counts the number of incidences recorded. Skin cancer outranks other cancer types more than double the next highest ranking, breast cancer. 
+
+**So what**: As non-melanoma is caused by damage from UV lights, could look at early education in children and advertisement for adults. More so during summer months. Awareness of artificial UV lights also, such as sunbeds.
+
+## Progression of cancers over time
+```{r, message=FALSE}
+nhs_cancer %>% 
+  filter(cancer_site %in% top_10_cancers_07_17,
+         sex != "All") %>%
+  group_by(cancer_site, year) %>% 
+  summarise(cases = sum(incidences_all_ages)) %>% 
+  ggplot() +
+  aes(x = year, y = cases, colour = cancer_site) +
+  geom_line(show.legend = F) +
+  aes(group = cancer_site) +
+  scale_x_continuous(breaks = c(1995, 2000, 2005, 2010, 2015)) +
+  scale_fill_manual(values = nhs_colours)+
+  facet_wrap(~cancer_site, nrow = 4) +
+  xlab("Year") +
+  ylab("Incidences") +
+  theme_minimal() +
+  theme(axis.title = element_text(face = "bold"),
+        plot.title = element_text(face = "bold"),
+        axis.text.y = element_blank())
+```
+
+Content: Looking at 10 most occurring cancers in NHS Borders, and how they have progressed in terms of incidences over time from 1993 to 2017.
+
+**So what**: Cancers that are notably on the rise over time; Basal cell & Non-melanoma skin cancer, prostate, breast and squamous cell carinoma. This further highlights requirements for education of skin cancer and recommend regular health checks with a GP or medical practitioner. What must be considered however is not in the data, is that we now have an ageing population. With longer life comes further health issues. This may be particular relevant to the skin cancer cases.
+
+
+## Cancers in each sex
+```{r}
+right <- borders_cancer %>%
+  mutate(cancer_site = as.factor(cancer_site)) %>% 
+  filter(cancer_site != "All cancer types",
+         year > 2012,
+         sex == "Male") %>%
+  group_by(cancer_site) %>% 
+  summarise(incidences = sum(incidences_all_ages)) %>% 
+  slice_max(incidences, n = 5) %>% 
+  arrange(desc(incidences)) %>% 
+    ggplot() +
+  aes(y = reorder(cancer_site, incidences), x = incidences) +
+  geom_col( fill = "steelblue") +
+  ggtitle(label = "5 Most Common Cancers Men")+
+  xlab("Number of Incidences from 2012 to 2017") +
+  geom_text(
+    aes(label = incidences), 
+    hjust = 1.1,
+    colour = "white") +
+  nhs_theme() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 15, face = "bold"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.y  = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+left <- borders_cancer %>%
+  mutate(cancer_site = as.factor(cancer_site)) %>% 
+  filter(cancer_site != "All cancer types",
+         year > 2012,
+         sex == "Female") %>%
+  group_by(cancer_site) %>% 
+  summarise(incidences = sum(incidences_all_ages)) %>% 
+  slice_max(incidences, n = 5) %>% 
+  arrange(desc(incidences)) %>% 
+    ggplot() +
+  aes(y = reorder(cancer_site, incidences), x = incidences) +
+  geom_col( fill = "maroon") +
+  ggtitle(label = "5 Most Common Cancers Woman")+
+  xlab("") +
+  geom_text(
+    aes(label = incidences), 
+    hjust = 1.1,
+    colour = "white") +
+  nhs_theme() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 15, face = "bold"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.y  = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+ggarrange(left, right, ncol = 1, common.legend = TRUE, legend = "right")
+```
+
+Content: Exploring most common cancers by sex. 
+
+**So what**: Rates of skin cancer are dominant in both male and female, however key differences lie in the anatomy of sex, as would be expected. Breast cancer is alarming as high a number of incidences are non-melanoma skin cancer in females. Colorectal appears to be commonly found, but cancer in the male prostate is found nearly as high as the most common cancers in females. All in all, it appears that males suffer more incidences of a range of cancers than females do. Focus should be made to breaking stigma attached to regular health check ups, particular for males and their prostates.
+
+## Recommendations
+Through basic analysis, I have identified three key insights:
+
+- Skin cancer in NHS Borders is the highest recorded type, incidences of Non-melanoma at 2836 and Basal cell carcinoma at 1878 across both sexes between 2007 and 2017. 
+- Due to an ageing population, the volume of incidences of cancers are generally increase, predominantly within skin cancer.
+- Men are most likely to show incidences of cancer types as the data suggests from a five year period. The two most common cancer types specific to sex is breast for female and prostate for male.
