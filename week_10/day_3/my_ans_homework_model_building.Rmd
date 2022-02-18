@@ -76,8 +76,9 @@ Check for aliased variables using the `alias()` function (this takes in a formul
 alias(lm(price ~ .,
          data = prices_clean))
 
-lm(formula = price ~ waterfront + grade + sqft_above + bathrooms, 
+mod1 <- lm(formula = price ~ waterfront + grade + sqft_above + bathrooms, 
     data = prices_clean)
+summary(mod1)
 ```
 
 # Question 3
