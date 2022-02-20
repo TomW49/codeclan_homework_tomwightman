@@ -1,0 +1,63 @@
+---
+title: "My Answers: Homework Quiz"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+
+1. I want to predict how well 6 year-olds are going to do in their final school exams. Using the following variables am I likely under-fitting, fitting well or over-fitting? Postcode, gender, reading level, score in maths test, date of birth, family income.
+
+**Over-fitting, as there are unnecessary variables included which will provide a very strict model.**
+
+<br>
+
+2. If I have two models, one with an AIC score of 34,902 and the other with an AIC score of 33,559 which model should I use?
+
+**You should use the AIC with the lowest score as it will give the best measure of goodness-of-fit but with the least number of predictors.**
+
+<br>
+
+3. I have two models, the first with: r-squared: 0.44, adjusted r-squared: 0.43. The second with: r-squared: 0.47, adjusted r-squared: 0.41. Which one should I use?
+
+**You should use model 1 with the highest r^2 number.**
+
+<br>
+
+4. I have a model with the following errors: RMSE error on test set: 10.3, RMSE error on training data: 10.4. Do you think this model is over-fitting?
+
+**A lower RSME number shows that the model has better accuracy, it is proportional to the observed mean.**
+
+<br>
+
+5. How does k-fold validation work?
+
+**It takes a data set, splits it into x portions, and uses those portions as a test set and a train sets - 1 test set and the rest training sets. It will iterate through each portion using remaining portions (folds) as train sets.**
+
+<br>
+
+6. What is a validation set? When do you need one?
+
+**If you are comparing several models you will need a validation set, this is not used in training or comparison. It will give a final estimate of the expected model performance. It is particularly useful for using hyperparameters.**
+
+<br>
+
+7. Describe how backwards selection works.
+
+**When creating a model, you include all predictors and then begin to remove them until an optimal r^2 is achieved.**
+
+<br>
+
+8. Describe how best subset selection works.
+
+**As opposed to manually adding or removing predictors, best subset selection or exhaustive search will search for all possible combinations of predictors for the best model. This is computationally intensive and can be expensive to do, and the effort of the algorithm increases exponentially with the number of predictors.**
+
+
+
+
