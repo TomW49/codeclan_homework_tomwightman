@@ -33,6 +33,7 @@ As part of the MVP we want you not to just run the code but also have a go at **
 library(tidyverse)
 library(janitor)
 library(GGally)
+library(leaps)
 
 avocado <- read_csv("data/avocado.csv") %>% 
   clean_names()
@@ -64,9 +65,8 @@ avocado %>%
   geom_smooth()
 ```
 
-# Feature Engineering
+# Feature Engineering (Manual)
 ```{r}
-
 # creating factors in prep for model
 avocado_clean <- avocado %>% 
   mutate(type = as.factor(type),
@@ -74,4 +74,17 @@ avocado_clean <- avocado %>%
          month = months(date)) %>% 
   select(-c("x1", "date", "total_volume", "total_bags"))
 ```
+
+# Auto
+```{r}
+regsubset <- regsubsets(average_price ~.,
+           data = avocado,
+           nvmax = 8,
+           method = "forward")
+```
+
+```{r}
+plot(regsubset)
+```
+
 
