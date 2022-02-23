@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Also known as **hierarchical cluster analysis** is a method to group similar objects into groups called clusters in order to create structure in data. Most common clustering algorythm is K-means ( thank you Kang for the awesome intro lesson! ;) )
+Also known as **hierarchical cluster analysis** is a method to group similar objects into groups called clusters in order to create structure in data. Most common clustering algorythm is K-means ( thank you Kang for the awesome intro lesson to come! ;) )
 
 ## Purpose
 
@@ -21,7 +21,7 @@ Allows visualisation of data to identify similarities and origin. Can compare re
 
 <br>
 
-#### Algorithmic
+#### Agglomerative 
 
 Also known as **bottom up** or **AGNES (Agglomerative Nesting),** it starts with individual observation and iterates upwards until only one data point remains which contains the full data set.
 
@@ -29,7 +29,7 @@ Also known as **bottom up** or **AGNES (Agglomerative Nesting),** it starts with
 
 #### Divisive
 
-Also known as **top down or DIANA (Divise Analysis),** has the opposite process of the algorithmic approach.
+Also known as **top down** or **DIANA (Divise Analysis),** has the opposite process of the agglomerative approach.
 
 <br>
 
