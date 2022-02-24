@@ -1,0 +1,101 @@
+---
+title: "Clustering homework"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+* You have been provided some customer data from a shopping centre. Do some exploratory analysis on the data. Comment on findings. 
+```{r}
+library(tidyverse)
+library(janitor)
+library(broom)
+library(factoextra)
+```
+
+```{r}
+customers <- read_csv("data/mall_customers.csv") %>% 
+  clean_names()
+```
+
+* We are interested in creating a marketing campaign to target customers based on their spending score and annual income. Perform a k-means clustering to find if there are meaningful clusters in the data to target the customers. 
+```{r}
+customers_money <- customers %>%
+  select(spending_score_1_100, annual_income_k)
+
+customers_money %>% 
+  ggplot() +
+  aes(x = annual_income_k,
+      y = spending_score_1_100) +
+  geom_point()
+
+customers_money <- customers_money %>%
+              mutate_if(is.numeric, scale)
+
+fviz_nbclust(customers_money,
+             kmeans,
+             method = "wss",
+             nstart = 25)
+
+fviz_nbclust(customers_money,
+             kmeans,
+             method = "silhouette",
+             nstart = 25)
+
+fviz_nbclust(customers_money,
+             kmeans,
+             method = "gap_stat",
+             nstart = 25,
+             k.max = 10)
+```
+
+* Perform k-means clustering and chose a value of k.
+
+```{r}
+max_k <- 25
+
+k_cluster_customer <- tibble(k = 1:max_k) %>% 
+  mutate(
+    kclust = map(k, ~ kmeans(customers_money, .x, nstart = 25)),
+    tidied = map(kclust, tidy), 
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, customers_money)
+    )
+
+clustering <- k_cluster_customer %>% 
+  unnest(glanced)
+
+clustered_customer <- kmeans(customers_money,
+                        centers = 5, # how many clusters
+                        nstart = 25)
+
+
+```
+
+
+* Visualise the clustering for your chosen value of k.
+
+```{r}
+clustering %>% 
+  unnest(augmented) %>% 
+  filter(k == 5) %>% 
+  ggplot() +
+  aes(x = spending_score_1_100,
+      y = annual_income_k,
+      colour = .cluster) +
+  geom_point()
+```
+
+
+* Do you think the clustering seems a good fit for this data?
+
+* Comment on the attributes on one or two of the clusters (maybe even give them a label if you like - like in section 4.1 of the 'Segmentation & clustering intro' lesson). 
+
+
+
+
+
+
